@@ -6,13 +6,16 @@ const winston = require('winston');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const mysql = require('mysql2');
+const userRoutes = require('./Routes/User/RouteUser.js');
+
+app.use('/users', userRoutes);
 
 // connexion à la base de données
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'bddAsterix',//nom de la bdd
+    database: '',//nom de la bdd
 });
 
 app.use(express.json());
@@ -36,7 +39,7 @@ function generateToken(us){
     ],
 });
 
-sapp.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(cors());
 
 //fonction dit middleware (permet de verifier l'état du token avant d'aller récupérer les informations pour notre utilisateur )
@@ -56,28 +59,7 @@ function authenticateToken(req, res, next) {
     });
 }
 
-// routes pour se connecter
-app.post('/login', (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-  
-    db.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (err, rows) => {
-      if (err) {
-        logger.error(err);
-      } else {
-        if (rows.length > 0) {
-          user = {
-            username: username,
-            password: password
-          };
-          const accessToken = generateToken(user);
-          res.json({ accessToken: accessToken });
-        } else {
-          res.send('Username ou password incorrect');
-        }
-      }
-    });
-});
+
 
 //routes pour verifier un token
 app.post('/token', (req, res) => {
