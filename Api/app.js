@@ -6,9 +6,12 @@ const winston = require('winston');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const mysql = require('mysql2');
+let router = require('express').Router();
 const userRoutes = require('./Routes/User/RouteUser.js');
+const adminRoutes = require('./Routes/Admin/RouteAdmin.js');
 
 app.use('/users', userRoutes);
+app.use('/admin', adminRoutes);
 
 // connexion à la base de données
 const db = mysql.createConnection({
