@@ -19,6 +19,7 @@
     border: 2px solid black;
     margin-right: 20%;
     border-radius: 50px;
+    transition: 0.5s;
 }
 .navbar a:hover:not(.inscription,.connection) {
     background-color: white;
