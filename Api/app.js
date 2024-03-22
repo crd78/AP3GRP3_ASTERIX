@@ -7,12 +7,12 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const mysql = require('mysql2');
 
-// create the connection to database
+// connexion à la base de données
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: '',//nom de la bdd
+    database: 'bddAsterix',//nom de la bdd
 });
 
 app.use(express.json());
@@ -55,6 +55,54 @@ function authenticateToken(req, res, next) {
       next();
     });
 }
+
+// routes pour se connecter
+app.post('/login', (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+  
+    db.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (err, rows) => {
+      if (err) {
+        logger.error(err);
+      } else {
+        if (rows.length > 0) {
+          user = {
+            username: username,
+            password: password
+          };
+          const accessToken = generateToken(user);
+          res.json({ accessToken: accessToken });
+        } else {
+          res.send('Username ou password incorrect');
+        }
+      }
+    });
+});
+
+//routes pour verifier un token
+app.post('/token', (req, res) => {
+    const token = req.body.token;
+  
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+      logger.json(user);
+    });
+});
+
+// routes pour ressortir toute les attractions
+app.get('/attractions', (req, res) => {
+    db.query('SELECT * FROM attractions', (err, rows) => {
+        if (err) {
+            logger.error(err);
+        } else {
+            res.send(rows);
+        }
+    });
+});
+
+
 
 app.listen(3000, () => {
     console.log('Server started on port 3000');
