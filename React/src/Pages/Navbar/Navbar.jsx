@@ -2,6 +2,7 @@ import './Navbar.css';
 
 const Navbar = () => {
     return (
+        
         <nav>
             <div className="container">
                 <nav className="navbar">
@@ -11,9 +12,12 @@ const Navbar = () => {
                     <div className="logs">
                         <a className='inscription'href="/inscription">Connection</a>
                     </div>
+                    <div className="bordure"></div>
+                    
                 </nav>
             </div>
         </nav>
+        
     );
 };
 
