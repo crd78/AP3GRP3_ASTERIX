@@ -1,0 +1,24 @@
+.img-accueil{
+    width: 100%;
+    height: 100%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.titre-accueil{
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 100px;
+    margin-bottom: 1em;
+    text-align: center;
+
+}
+.img-icones{
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+    height: 40vh; /* Ajustez la hauteur selon vos besoins */
+    margin-top: 100px;
+}
