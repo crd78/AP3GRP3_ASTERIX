@@ -4,21 +4,49 @@
     margin-top: 1em;
     margin-bottom: 1em;
 }
-.titre-accueil{
-    font-size: 28px;
-    font-weight: bold;
-    margin-top: 100px;
-    margin-bottom: 1em;
-    text-align: center;
+@media (max-width: 768px) {
+    .titre-accueil{
+        font-size: 28px;
+        font-weight: bold;
+        margin-top: 100px;
+        margin-bottom: 1em;
+        text-align: center;
+    }
+    
+}
+@media (min-width:769px){
+    .titre-accueil{
+        font-size: 40px;
+        font-weight: bold;
+        margin-top: 100px;
+        margin-bottom: 1em;
+        text-align: center;
+    }
+}
+@media (max-width: 768px) {
+    .img-icones {
+        width: 80%;
+        height: 80%;
+        margin: auto;
+        display: flex;
+        justify-content: center; /* Centrer horizontalement */
+        align-items: center; /* Centrer verticalement */
+        height: 40vh; /* Ajustez la hauteur selon vos besoins */
+        margin-top: 100px;
+       
+    }
+}
+@media (min-width:769px){
+    .img-icones {
+        width: 40%;
+        height: 40%;
+        margin: auto;
+        display: flex;
+        justify-content: center; /* Centrer horizontalement */
+        align-items: center; /* Centrer verticalement */
+      
+        margin-top: 100px;
+    }
+}
+    
 
-}
-.img-icones{
-    width: 80%;
-    height: 80%;
-    margin: auto;
-    display: flex;
-    justify-content: center; /* Centrer horizontalement */
-    align-items: center; /* Centrer verticalement */
-    height: 40vh; /* Ajustez la hauteur selon vos besoins */
-    margin-top: 100px;
-}
