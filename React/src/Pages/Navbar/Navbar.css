@@ -1,0 +1,53 @@
+
+.container {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    padding: 10px 0;
+    border-bottom: 2px solid black;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+  
+.navbar a:not(.connection,.inscription) {
+    text-decoration: none;
+    color: black;
+    padding: 5px 10px;
+    margin-right: 20%;
+    border-radius: 50px;
+    transition: color 0.5s;
+}
+.navbar a:hover:not(.inscription,.connection) {
+    color: #23AE4A; /* Changez la couleur sur le survol */
+    transition: color 0.5s; /* Changez la transition uniquement pour la couleur */
+
+}
+
+.logs {
+   position: absolute;
+    right: 0;
+    margin-right: 10px;
+   
+}
+.inscription{
+    text-decoration: none;
+    color: white;
+    padding: 5px 10px;
+    border: 2px solid #23AE4A;
+    background-color: #23AE4A;
+    border-radius: 50px;
+    transition: 0.5s;
+}
+.inscription:hover {
+    background-color: white;
+    color: #23AE4A;
+    border: 2px solid #23AE4A;
+    transition: 0.5s;
+}
+
+  
