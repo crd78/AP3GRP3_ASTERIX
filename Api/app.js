@@ -18,7 +18,7 @@ const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: '',//nom de la bdd
+    database: 'tkt',//nom de la bdd
 });
 
 app.use(express.json());
