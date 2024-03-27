@@ -11,13 +11,14 @@ app.use('/admin', admin);
 app.use(express.json());
 
 function generateToken(utilisateurs){
-  console.log('Génération du token pour l\'utilisateur :', utilisateurs, 'avec le rôle :', utilisateurs.role);
-  return jwt.sign({ id: utilisateurs.id, role: utilisateurs.id_role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+  console.log('Génération du token pour l\'utilisateur :', utilisateurs, 'avec le rôle :', utilisateurs.id_roles);
+  return jwt.sign({ id: utilisateurs.id, role: utilisateurs.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
 }
 
 app.get('/jwt', (req, res) => {
   // Récupérez l'utilisateur de la base de données
   db.query('SELECT * FROM utilisateurs WHERE email = ? AND password = ?', [req.body.email, req.body.password], (error, results) => {
+    
     if (error) {
       console.error(error);
       res.status(500).send('Erreur lors de la récupération de l\'utilisateur');
@@ -27,6 +28,7 @@ app.get('/jwt', (req, res) => {
       // Créez le token avec le rôle de l'utilisateur
       const utilisateurs = { id: results[0].id, email: results[0].email, role: results[0].id_roles };
       const token = jwt.sign(utilisateurs, 'secret', { expiresIn: '1h' });
+      
 
       res.json({ token });
     }
