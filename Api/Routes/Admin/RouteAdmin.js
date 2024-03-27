@@ -55,15 +55,9 @@ function authenticateToken(req, res, next) {
     });
   }
 
-//route qui sort les attractions
-router.get('/attractions', verifyAdmin,authenticateToken, (req, res) => {
-    db.query('SELECT * FROM attractions', (err, results) => {
-      if (err) throw err;
-      res.send(results);
-    });
-  });
+// ajouter la fonction verifyAdmin et authenticateToken à toute les routes ici 
 
- 
+
 
 
 
