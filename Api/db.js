@@ -8,5 +8,4 @@ const db = mysql.createConnection({
   password: '',
   database: 'tkt'
 });
-
 module.exports = db;
