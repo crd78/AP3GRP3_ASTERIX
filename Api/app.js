@@ -16,7 +16,7 @@ app.use(cors());
 
 function generateToken(utilisateurs){
   console.log('Génération du token pour l\'utilisateur :', utilisateurs, 'avec le rôle :', utilisateurs.id_roles);
-  return jwt.sign({ id: utilisateurs.id, role: utilisateurs.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5s' });
+  return jwt.sign({ id: utilisateurs.id, role: utilisateurs.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3s' });
 }
 
 app.get('/jwt', (req, res) => {
@@ -69,3 +69,8 @@ app.post('/login', (req, res) => {
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
+
+// Route de déconnexion
+app.post('/deconnexion', (requete, reponse) => {
+    reponse.status(200).json({ status: true, message: "Déconnexion réussie" });
+})
