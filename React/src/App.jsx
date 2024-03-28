@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 
 function AdminRoute({ element }) {
   const navigate = useNavigate();
-  let isAdmin = true; //remttre sur false de base
+  let isAdmin = false; //remttre sur false de base
 
   const token = localStorage.getItem('token');
 

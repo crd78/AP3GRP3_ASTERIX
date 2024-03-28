@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './AdminAvertissement.css';
 
 const Avertissement = () => {
     const [Avertissements, setAvertissements] = useState([]);
@@ -7,6 +8,7 @@ const Avertissement = () => {
     const [newIdNiveaux, setNewIdNiveaux] = useState('');
     const [editing, setEditing] = useState(null);
     const [showCreateForm, setShowCreateForm] = useState(false);
+  
 
     useEffect(() => {
         fetchAvertissements();
@@ -49,8 +51,12 @@ const Avertissement = () => {
             return;
         }
 
-        if (newIdNiveaux > 0 || newIdNiveaux > 5 || newIdNiveaux === '') {
+        if (!(newIdNiveaux > 0 && newIdNiveaux < 5 )) {
             alert('Veuillez entrer un niveau entre 1 et 4');
+            return;
+        }
+        if(newIdNiveaux == null){
+            alert('Veuillez entrer un niveau');
             return;
         }
 
@@ -60,6 +66,7 @@ const Avertissement = () => {
             setNewMessage('');
             setNewIdNiveaux('');
             setShowCreateForm(false);
+       
         } catch (error) {
             console.error('Error creating avertissement:', error);
         }
@@ -74,33 +81,47 @@ const Avertissement = () => {
     };
 
     return (
-        <div>
-        
-            <button onClick={() =>setShowCreateForm(true)}>Create</button>
-            {showCreateForm && (
-                <form onSubmit={createAvertissement}>
-                    <input type="text" value={newMessage} onChange={handleInputChange} placeholder="New message" />
-                    <input type="number" value={newIdNiveaux} onChange={handleInputChangeIdNiveaux} placeholder="New id_niveaux" />
-                    <button type="submit">Confirmer</button>
-                </form>
-            )}
-            {Avertissements.map((avertissement) => (
-                <div key={avertissement.id}>
-                    <p>{avertissement.message}</p>
-                    <p>{avertissement.id_niveaux}</p>
-                    {editing === avertissement.id ? (
-                        <>
-                            <input type="text" value={newMessage} onChange={handleInputChange} />
-                            <input type="number" value={newIdNiveaux} onChange={handleInputChangeIdNiveaux} placeholder='niveau' />
-                            <button onClick={() => updateAvertissement(avertissement.id, { message: newMessage, id_niveaux: newIdNiveaux })}>Confirm</button>
-                        </>
-                    ) : (
-                        <button onClick={() => setEditing(avertissement.id)}>Update</button>
+        <div className='AdminAdvertMargin'>
+            <div className='AdvertAdminContainer'>
+                <h1>Admin Avertissements</h1>
+                <div className="CreeAvertissement">
+                    {!showCreateForm && (
+                        <button onClick={() =>setShowCreateForm(true)}>Create
+                        </button>
                     )}
-                    <button onClick={() => deleteAvertissement(avertissement.id)}>Delete</button>
+                    {showCreateForm && (
+                        
+                        <form onSubmit={createAvertissement}>
+                            <input type="text" value={newMessage} onChange={handleInputChange} placeholder="New message" />
+                            <input type="number" value={newIdNiveaux} onChange={handleInputChangeIdNiveaux} placeholder="New id_niveaux" />
+                            <button type="submit">Confirmer</button>
+                        </form>
+                    )}
                 </div>
-            ))}
             
+                    {Avertissements.map((avertissement) => (
+                        <div className="AffichageAvertissement" key={avertissement.id}>
+        <div>
+            <h2>Message:</h2>
+            <p>{avertissement.message}</p>
+            <h2>Niveaux:</h2>
+            <p>{avertissement.id_niveaux}</p>
+            {editing === avertissement.id ? (
+                <>
+                    <input type="text" value={newMessage} onChange={handleInputChange} />
+                    <input type="number" value={newIdNiveaux} onChange={handleInputChangeIdNiveaux} placeholder='niveau' />
+                    <button onClick={() => updateAvertissement(avertissement.id, { message: newMessage, id_niveaux: newIdNiveaux })}>Confirm</button>
+                </>
+            ) : (
+                <button onClick={() => setEditing(avertissement.id)}>Update</button>
+            )}
+            <button onClick={() => deleteAvertissement(avertissement.id)}>Delete</button>
+        </div>
+    </div>
+                    ))}
+            
+                
+            </div>
         </div>
     );
 };
