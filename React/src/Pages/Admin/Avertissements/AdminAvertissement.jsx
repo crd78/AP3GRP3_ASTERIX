@@ -6,6 +6,7 @@ const Avertissement = () => {
     const [newMessage, setNewMessage] = useState('');
     const [newIdNiveaux, setNewIdNiveaux] = useState('');
     const [editing, setEditing] = useState(null);
+    const [showCreateForm, setShowCreateForm] = useState(false);
 
     useEffect(() => {
         fetchAvertissements();
@@ -40,6 +41,30 @@ const Avertissement = () => {
         }
     };
 
+    const createAvertissement = async () => {
+        event.preventDefault();
+
+        if (!newMessage) {
+            alert('Veuillez entrer un message');
+            return;
+        }
+
+        if (newIdNiveaux > 0 || newIdNiveaux > 5 || newIdNiveaux === '') {
+            alert('Veuillez entrer un niveau entre 1 et 4');
+            return;
+        }
+
+        try {
+            await axios.post('http://localhost:3000/admin/CreateAvertissements', { message: newMessage, id_niveaux: newIdNiveaux });
+            fetchAvertissements();
+            setNewMessage('');
+            setNewIdNiveaux('');
+            setShowCreateForm(false);
+        } catch (error) {
+            console.error('Error creating avertissement:', error);
+        }
+    };
+
     const handleInputChange = (event) => {
         setNewMessage(event.target.value);
     };
@@ -50,6 +75,15 @@ const Avertissement = () => {
 
     return (
         <div>
+        
+            <button onClick={() =>setShowCreateForm(true)}>Create</button>
+            {showCreateForm && (
+                <form onSubmit={createAvertissement}>
+                    <input type="text" value={newMessage} onChange={handleInputChange} placeholder="New message" />
+                    <input type="number" value={newIdNiveaux} onChange={handleInputChangeIdNiveaux} placeholder="New id_niveaux" />
+                    <button type="submit">Confirmer</button>
+                </form>
+            )}
             {Avertissements.map((avertissement) => (
                 <div key={avertissement.id}>
                     <p>{avertissement.message}</p>
@@ -66,6 +100,7 @@ const Avertissement = () => {
                     <button onClick={() => deleteAvertissement(avertissement.id)}>Delete</button>
                 </div>
             ))}
+            
         </div>
     );
 };

@@ -61,7 +61,7 @@ function authenticateToken(req, res, next) {
 // ajouter la fonction verifyAdmin et authenticateToken à toute les routes ici 
 
 //route qui recupere les alerts
-router.get('/avertissements',verifyAdmin,authenticateToken, (req, res) => {
+router.get('/avertissements', (req, res) => {
   const query = 'SELECT * FROM avertissements';
   db.query(query, (err, results) => {
     if (err) {
@@ -75,7 +75,7 @@ router.get('/avertissements',verifyAdmin,authenticateToken, (req, res) => {
 });
 
 //route qui supprime une alerts
-router.delete('/DelAvertissements/:id',verifyAdmin,authenticateToken, (req, res) => {
+router.delete('/DelAvertissements/:id', (req, res) => {
   const query = 'DELETE FROM avertissements WHERE id = ?';
   db.query(query, [req.params.id], (err, results) => {
     if (err) {
@@ -89,7 +89,7 @@ router.delete('/DelAvertissements/:id',verifyAdmin,authenticateToken, (req, res)
 });
 
 //route qui modifie une alerte
-router.put('/ModifAvertissements/:id',verifyAdmin,authenticateToken, (req, res) => {
+router.put('/ModifAvertissements/:id', (req, res) => {
   const query = 'UPDATE avertissements SET message = ?, id_niveaux = ? WHERE id = ?';
   db.query(query, [req.body.message,req.body.id_niveaux, req.params.id], (err, results) => {
     if (err) {
@@ -102,6 +102,19 @@ router.put('/ModifAvertissements/:id',verifyAdmin,authenticateToken, (req, res) 
   });
 });
 
+//route pour crée une alerte
+router.post('/CreateAvertissements', (req, res) => {
+  const query = 'INSERT INTO avertissements (message, id_niveaux) VALUES (?, ?)';
+  db.query(query, [req.body.message, req.body.id_niveaux], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de la création de l\'alert');
+      return;
+    }
+
+    res.status(200).send('Alert créée');
+  });
+});
 
 
 
