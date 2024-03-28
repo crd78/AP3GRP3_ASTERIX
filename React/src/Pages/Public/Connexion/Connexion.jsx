@@ -6,4 +6,4 @@ const Connexion = () => {
     );
 };
 
-export default Home;
+export default Connexion;
