@@ -2,6 +2,9 @@ import './Navbar.css';
 import { BrowserRouter as Router, Routes,Route } from 'react-router-dom';
 import Home from '../User/Home/Home';
 import Attractions from '../User/Attractions/Attractions';
+import Connexion from '../Public/Connexion/Connexion';
+import Missions from '../User/Missions/Mission';
+import Avertissement from '../User/Avertissements/Avertissement';
 
 const Navbar = () => {
     return (
@@ -14,6 +17,7 @@ const Navbar = () => {
                             <Route path="/" element={<Home />} />
                             <Route path="/attractions" element={<Attractions />} />
                             <Route path="/missions" element={<Missions />} />
+                            <Route path="/Advertissement" element={<Avertissement />} />
                             <div className="logs">
                                 <Route path="/Connexion" element={<Connexion />} />
                             </div>
