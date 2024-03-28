@@ -5,14 +5,18 @@ const app = express();
 const user = require('./Routes/User/RouteUser');
 const admin = require('./Routes/Admin/RouteAdmin');
 const jwt = require('jsonwebtoken');
+const cors = require("cors");
+
 
 app.use('/user', user);
 app.use('/admin', admin);
 app.use(express.json());
+app.use(cors());
+
 
 function generateToken(utilisateurs){
   console.log('Génération du token pour l\'utilisateur :', utilisateurs, 'avec le rôle :', utilisateurs.id_roles);
-  return jwt.sign({ id: utilisateurs.id, role: utilisateurs.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+  return jwt.sign({ id: utilisateurs.id, role: utilisateurs.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5s' });
 }
 
 app.get('/jwt', (req, res) => {
