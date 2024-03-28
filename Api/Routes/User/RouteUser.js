@@ -2,10 +2,12 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const db = require('../../db');
+const cors = require('cors');
 
 
 let router = express.Router();
 
+router.use(cors());
 
 router.use(express.json());
 
@@ -32,7 +34,7 @@ function authenticateToken(req, res, next) {
 
 
 //route qui recupere les alerts
-router.get('/avertissements', authenticateToken, (req, res) => {
+router.get('/avertissements', (req, res) => {
   const query = 'SELECT * FROM avertissements';
   db.query(query, (err, results) => {
     if (err) {
@@ -44,6 +46,7 @@ router.get('/avertissements', authenticateToken, (req, res) => {
     res.json(results);
   });
 });
+
 
   
 
