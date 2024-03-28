@@ -61,7 +61,7 @@ function authenticateToken(req, res, next) {
 // ajouter la fonction verifyAdmin et authenticateToken à toute les routes ici 
 
 //route qui recupere les alerts
-router.get('/avertissements', (req, res) => {
+router.get('/avertissements',verifyAdmin,authenticateToken, (req, res) => {
   const query = 'SELECT * FROM avertissements';
   db.query(query, (err, results) => {
     if (err) {
@@ -75,7 +75,7 @@ router.get('/avertissements', (req, res) => {
 });
 
 //route qui supprime une alerts
-router.delete('/DelAvertissements/:id', (req, res) => {
+router.delete('/DelAvertissements/:id',verifyAdmin,authenticateToken, (req, res) => {
   const query = 'DELETE FROM avertissements WHERE id = ?';
   db.query(query, [req.params.id], (err, results) => {
     if (err) {
@@ -89,9 +89,9 @@ router.delete('/DelAvertissements/:id', (req, res) => {
 });
 
 //route qui modifie une alerte
-router.put('/ModifAvertissements/:id', (req, res) => {
-  const query = 'UPDATE avertissements SET message = ? WHERE id = ?';
-  db.query(query, [req.body.message, req.params.id], (err, results) => {
+router.put('/ModifAvertissements/:id',verifyAdmin,authenticateToken, (req, res) => {
+  const query = 'UPDATE avertissements SET message = ?, id_niveaux = ? WHERE id = ?';
+  db.query(query, [req.body.message,req.body.id_niveaux, req.params.id], (err, results) => {
     if (err) {
       console.error(err);
       res.status(500).send('Erreur lors de la modification de l\'alert');

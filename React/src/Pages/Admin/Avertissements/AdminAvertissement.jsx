@@ -1,56 +1,52 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Avertissement = () => {
     const [Avertissements, setAvertissements] = useState([]);
+    const [newMessage, setNewMessage] = useState('');
+    const [newIdNiveaux, setNewIdNiveaux] = useState('');
+    const [editing, setEditing] = useState(null);
 
     useEffect(() => {
-        const fetchAvertissements = async () => {
-            try {
-                const token = localStorage.getItem('token'); // Get the token from local storage
-                const response = await axios.get('http://localhost:3000/admin/avertissements', {
-                    headers: {
-                        'Authorization': `Bearer ${token}` // Send the token in the request headers
-                    }
-                });
-                setAvertissements(response.data);
-            } catch (error) {
-                console.error('Error fetching avertissements:', error);
-            }
-        };
-    
         fetchAvertissements();
     }, []);
 
-    // const updateAvertissement = async (id, message, id_niveaux) => {
-    //     try {
-    //         const token = localStorage.getItem('token'); // Get the token from local storage
-    //         await axios.put(`http://localhost:3000/admin/ModifAvertissements/${id}`, {
-    //             message,
-    //             id_niveaux
-    //         }, {
-    //             headers: {
-    //                 'Authorization': `Bearer ${token}` // Send the token in the request headers
-    //             }
-    //         });
-    //     } catch (error) {
-    //         console.error('Error updating avertissement:', error);
-    //     }
-    // };
+    const fetchAvertissements = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/admin/avertissements');
+            setAvertissements(response.data);
+        } catch (error) {
+            console.error('Error fetching avertissements:', error);
+        }
+    };
 
-    // const deleteAvertissement = async (id) => {
-    //     try {
-    //         const token = localStorage.getItem('token'); // Get the token from local storage
-    //         await axios.delete(`http://localhost:3000/admin/Delavertissements/${id}`, {
-    //             headers: {
-    //                 'Authorization': `Bearer ${token}` // Send the token in the request headers
-    //             }
-    //         });
-    //     } catch (error) {
-    //         console.error('Error deleting avertissement:', error);
-    //     }
-    // };
+    const updateAvertissement = async (id, data) => {
+        try {
+            await axios.put(`http://localhost:3000/admin/ModifAvertissements/${id}`, data);
+            fetchAvertissements();
+            setEditing(null);
+        } catch (error) {
+            console.error('Error updating avertissement:', error);
+        }
+    };
 
+    const deleteAvertissement = async (id, data) => {
+        try {
+            await axios.delete(`http://localhost:3000/admin/DelAvertissements/${id}`, data);
+            fetchAvertissements();
+            
+        } catch (error) {
+            console.error('Error deleting avertissement:', error);
+        }
+    };
+
+    const handleInputChange = (event) => {
+        setNewMessage(event.target.value);
+    };
+
+    const handleInputChangeIdNiveaux = (event) => {
+        setNewIdNiveaux(event.target.value);
+    };
 
     return (
         <div>
@@ -58,8 +54,16 @@ const Avertissement = () => {
                 <div key={avertissement.id}>
                     <p>{avertissement.message}</p>
                     <p>{avertissement.id_niveaux}</p>
-                    {/* <button onClick={() => updateAvertissement(avertissement.id, { message: 'New message', id_niveaux: 2 })}>Update</button>
-                    <button onClick={() => deleteAvertissement(avertissement.id)}>Delete</button> */}
+                    {editing === avertissement.id ? (
+                        <>
+                            <input type="text" value={newMessage} onChange={handleInputChange} />
+                            <input type="number" value={newIdNiveaux} onChange={handleInputChangeIdNiveaux} placeholder='niveau' />
+                            <button onClick={() => updateAvertissement(avertissement.id, { message: newMessage, id_niveaux: newIdNiveaux })}>Confirm</button>
+                        </>
+                    ) : (
+                        <button onClick={() => setEditing(avertissement.id)}>Update</button>
+                    )}
+                    <button onClick={() => deleteAvertissement(avertissement.id)}>Delete</button>
                 </div>
             ))}
         </div>
