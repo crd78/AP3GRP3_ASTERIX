@@ -2,8 +2,11 @@ const express = require('express');
 require('dotenv').config();
 const db = require('../../db');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 let router = express.Router();
 
+
+router.use(cors());
 router.use(express.json());
 
 
@@ -58,7 +61,7 @@ function authenticateToken(req, res, next) {
 // ajouter la fonction verifyAdmin et authenticateToken à toute les routes ici 
 
 //route qui recupere les alerts
-router.get('/avertissements',verifyAdmin, (req, res) => {
+router.get('/avertissements', (req, res) => {
   const query = 'SELECT * FROM avertissements';
   db.query(query, (err, results) => {
     if (err) {
@@ -72,7 +75,7 @@ router.get('/avertissements',verifyAdmin, (req, res) => {
 });
 
 //route qui supprime une alerts
-router.delete('/avertissements/:id',verifyAdmin, (req, res) => {
+router.delete('/DelAvertissements/:id', (req, res) => {
   const query = 'DELETE FROM avertissements WHERE id = ?';
   db.query(query, [req.params.id], (err, results) => {
     if (err) {
@@ -86,7 +89,7 @@ router.delete('/avertissements/:id',verifyAdmin, (req, res) => {
 });
 
 //route qui modifie une alerte
-router.put('/avertissements/:id',verifyAdmin, (req, res) => {
+router.put('/ModifAvertissements/:id', (req, res) => {
   const query = 'UPDATE avertissements SET message = ? WHERE id = ?';
   db.query(query, [req.body.message, req.params.id], (err, results) => {
     if (err) {

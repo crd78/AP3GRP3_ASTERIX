@@ -10,9 +10,9 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
-function AdminRoute({ element, ...rest }) {
+function AdminRoute({ element }) {
   const navigate = useNavigate();
-  let isAdmin = false;
+  let isAdmin = true; //remttre sur false de base
 
   const token = localStorage.getItem('token');
 
