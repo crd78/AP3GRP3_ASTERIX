@@ -1,4 +1,5 @@
 // import { BrowserRouter as Router, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import Navbar from './Pages/Navbar/Navbar';
 
 function App() {
@@ -6,10 +7,11 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-        {/* <Router>
-          <Routes>
-          </Routes>
-        </Router> */}
+      <ToastContainer
+        position="top-center"
+        autoClose={8000}
+        transition={Flip}
+      />
     </div>
   )
 }

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import './Connexion.css';
 
-function LoginForm() {
+const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,10 +29,12 @@ function LoginForm() {
                 //const decodedToken = jwtDecode(data.token);
                 //setEmail(decodedToken.email);
                 toast.success('Connexion réussie');
+                console.log('Connexion réussie');
                 setIsLoggedIn(true);
                 setEmail('');
                 setPassword('');
             } else {
+                console.log('ERREUR');
                 console.error('Erreur de connexion:', response.status);
                 toast.warning('Erreur de connexion');
             }
@@ -82,7 +85,7 @@ function LoginForm() {
                 </div>
             ) : (
                 <form onSubmit={handleLogin}>
-                    <div>
+                    <div className='caca'>
                         <h1>Connexion</h1>
                         <label htmlFor="email">Email:</label>
                         <input
@@ -109,4 +112,3 @@ function LoginForm() {
 }
 
 export default LoginForm;
-

@@ -1,22 +1,14 @@
+import { Router, Routes } from 'express';
 import './Navbar.css';
+import LoginForm from '../Public/Connexion/LoginForm';
 
 const Navbar = () => {
     return (
-
-        <nav>
-            <div className="container">
-                <nav className="navbar">
-                    <a href="/">Accueil</a>
-                    <a href="/attractions">Attractions</a>
-                    <a href="/missions">Missions</a>
-                    <div className="logs">
-                        <a className='inscription' href="/connexion">Connection</a>
-                    </div>
-                    <div className="bordure"></div>
-
-                </nav>
-            </div>
-        </nav>
+        <Router>
+            <Routes>
+                <Route path='/login' element={<LoginForm />} />
+            </Routes>
+        </Router>
 
     );
 };
