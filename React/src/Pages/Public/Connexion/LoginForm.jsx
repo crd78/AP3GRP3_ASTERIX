@@ -1,45 +1,34 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
+
+
+
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
-    // Fonction pour se connecter
     const handleLogin = async (e) => {
         e.preventDefault();
-
-        try {
-            // On récupère la réponse de l'API
-            const response = await fetch('http://localhost:3000/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email,
-                    password
-                })
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                // On stocke le token dans le localStorage
-                localStorage.setItem('token', data.token);
-                toast.success('Connexion réussie');
-                console.log('Connexion réussie');
-                setIsLoggedIn(true);
-                setEmail('');
-                setPassword('');
-            } else {
-                console.log('ERREUR');
-                console.error('Erreur de connexion:', response.status);
-                toast.warning('Erreur de connexion');
-            }
-        } catch (error) {
-            console.error('Erreur lors de la connexion:', error);
+    
+        const response = await fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+    
+        if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem('token', data.token);
+            // ...
+        } else if (response.status === 401) {
+            // Handle unauthorized error
+            console.error('Erreur de connexion: 401');
+        } else {
+            // Handle other errors
+            console.error('Une erreur inattendue est survenue');
         }
     };
 
@@ -75,6 +64,8 @@ const LoginForm = () => {
             setIsLoggedIn(true);
         }
     }, []);
+
+  
 
     return (
         <div>
