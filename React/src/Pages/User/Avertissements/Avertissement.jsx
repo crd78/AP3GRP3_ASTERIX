@@ -22,17 +22,17 @@ const Avertissement = () => {
     return (
         <div className='UserAvertissementContainer'>
             <h1>Avertissements</h1>
-            <div className='UserAvertissementContainertab'> 
+            
                 {Avertissements.map((avertissement) => (
-                    <div key={avertissement.id}>
+                    <div className='UserAvertissementContainertab ' key={avertissement.id}>
                         <h2>Message:</h2>
                         <p>{avertissement.message}</p>
                         <h2>Niveau:</h2>
-                        <p>{avertissement.id_niveaux}</p>
+                        <p>{avertissement.id_niveaux}</p>       
                     </div>
                 ))}
-            </div>
         </div>
+      
     );
 };
 

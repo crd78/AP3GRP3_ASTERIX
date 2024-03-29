@@ -1,42 +1,81 @@
-.UserAvertissementContainer {
-  justify-content: center;
-  margin-top: 20px;
-  margin-left: 10%;
-  margin-right: 10%;
-}
-.UserAvertissementContainer h1 {
-  font-size: 1.5em;
-  margin-bottom: 5%;
-  margin-top: 50px;
 
-}
-.UserAvertissementContainer h2 {
-  font-size: 1em;
-  margin-bottom: 20px;
-}
-.UserAvertissementContainer button {
-  font-size: 1em;
-  background-color: #23AE4A;
-  padding: 10px 20px;
-  border-radius: 50px;
-  margin-bottom: 20px;
-  color: white;
-}
-.UserAvertissementContainer button:hover {
-  transform: scale(0.95);
-  padding: 10px 20px;
-  transition: 0.2s;
-  cursor: pointer;
+
+@media (min-width: 769px) {
+  .UserAvertissementContainer {
+    justify-content: center;
+    margin-top: 20px;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  
 }
 
-.UserAvertissementContainertab  {
-  padding: 20px;
-  border: 2px solid rgb(179, 175, 175);
-  border-radius: 10px;
-  background-color: white;
-  justify-content: center;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
+@media (max-width: 768px) {
+  .UserAvertissementContainer {
+    justify-content: center;
+    margin-top: 20px;
+    margin-left: 10%; 
+    margin-right: 10%; 
+  }
+  
 }
+
+@media (min-width: 769px) {
+  .UserAvertissementContainer h1 {
+    font-size: 1.5em;
+    margin-bottom: 5%;
+    margin-top: 50px;
+  
+  }
+}
+
+@media (max-width: 768px) {
+  .UserAvertissementContainer h1 {
+    font-size: 1.5em;
+    margin-bottom: 5%;
+    margin-top: 20%;
+  
+  }
+}
+
+@media (min-width: 769px) {
+  .UserAvertissementContainer h2 {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 768px) {
+  .UserAvertissementContainer h2 {
+    font-size: 1em;
+  }
+}
+
+
+
+@media (min-width: 769px) {
+  .UserAvertissementContainertab  {
+    padding: 20px;
+    border: 2px solid rgb(179, 175, 175);
+    border-radius: 10px;
+    background-color: white;
+    justify-content: center;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    overflow-wrap: break-word; /* Add this line */
+  }
+}
+
+@media (max-width: 768px) {
+  .UserAvertissementContainertab  {
+    padding: 20px;
+    border: 2px solid rgb(179, 175, 175);
+    border-radius: 10px;
+    background-color: white;
+    justify-content: center;  
+    margin-bottom: 20px;
+    overflow-wrap: break-word; /* Add this line */
+  }
+}
+

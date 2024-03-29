@@ -1,43 +1,51 @@
+
 import './Navbar.css';
-import {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
+import {UserContext} from '../../assets/Context/UserContexte';
+import { useContext, useEffect } from 'react';
+import { useState } from 'react';
 
 
 const Navbar = () => {
-    const [isAdmin, setIsAdmin] = useState(true);
+    const { isAdmin } = useContext(UserContext);
+    const [isOpen, setisOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 100);
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if(token){
-            const base64Url = token.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-    
-            const decodedToken = JSON.parse(jsonPayload);
-            setIsAdmin(decodedToken.isAdmin);
-        }
-
+        window.addEventListener('resize', () => {
+            setIsMobile(window.innerWidth < 1000);
+        });
     }, []);
-    return (
 
+    return (
         <nav>
             <div className="container">
                 <nav className="navbar">
-                    <a href="/">Accueil</a>
-                    <a href="/attractions">Attractions</a>
-                    <a href="/missions">Missions</a>
+                    {isMobile && (
+                        <button onClick={() => setisOpen(!isOpen)}>
+                            {isOpen ? 'Fermer' : 'Ouvrir'}
+                        </button>
+                    )}
+                    {(isOpen || !isMobile) && (
+                        <div className="nav-links">
+                            <a href="/">Accueil</a>
+                            <a href="/attractions">Attractions</a>
+                            <a href="/missions">Missions</a>
                     
-                        <a href={isAdmin ? "/admin/avertissements" : "/avertissement"} >Avertissement</a>
-                    <div className="logs">
-                        <a className='inscription' href="/login">Connection</a>
-                    </div>
-                    <div className="bordure"></div>
-
+                            {isAdmin && isAdmin() && (
+                                <Link to="/admin/avertissements">Gérer Avertissement</Link>
+                            )} 
+                            {isAdmin && !isAdmin() && (
+                                <Link to="/Avertissement">Avertissement</Link>
+                            )}
+                            <div className="Connexion">
+                                <a href="/login">Connexion</a>
+                            </div>
+                        </div>
+                        )}
                 </nav>
             </div>
         </nav>
-
     );
 };
 
