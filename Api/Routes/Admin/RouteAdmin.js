@@ -2,8 +2,11 @@ const express = require('express');
 require('dotenv').config();
 const db = require('../../db');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 let router = express.Router();
 
+
+router.use(cors());
 router.use(express.json());
 
 
@@ -57,7 +60,61 @@ function authenticateToken(req, res, next) {
 
 // ajouter la fonction verifyAdmin et authenticateToken à toute les routes ici 
 
+//route qui recupere les alerts
+router.get('/avertissements',verifyAdmin,authenticateToken, (req, res) => {
+  const query = 'SELECT * FROM avertissements';
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de la récupération des alerts');
+      return;
+    }
 
+    res.json(results);
+  });
+});
+
+//route qui supprime une alerts
+router.delete('/DelAvertissements/:id',verifyAdmin,authenticateToken, (req, res) => {
+  const query = 'DELETE FROM avertissements WHERE id = ?';
+  db.query(query, [req.params.id], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de la suppression de l\'alert');
+      return;
+    }
+
+    res.status(200).send('Alert supprimée');
+  });
+});
+
+//route qui modifie une alerte
+router.put('/ModifAvertissements/:id',verifyAdmin,authenticateToken, (req, res) => {
+  const query = 'UPDATE avertissements SET message = ?, id_niveaux = ? WHERE id = ?';
+  db.query(query, [req.body.message,req.body.id_niveaux, req.params.id], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de la modification de l\'alert');
+      return;
+    }
+
+    res.status(200).send('Alert modifiée');
+  });
+});
+
+//route pour crée une alerte
+router.post('/CreateAvertissements',verifyAdmin,authenticateToken, (req, res) => {
+  const query = 'INSERT INTO avertissements (message, id_niveaux) VALUES (?, ?)';
+  db.query(query, [req.body.message, req.body.id_niveaux], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de la création de l\'alert');
+      return;
+    }
+
+    res.status(200).send('Alert créée');
+  });
+});
 
 
 
