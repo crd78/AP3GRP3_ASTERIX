@@ -7,10 +7,12 @@ const LoginForm = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
+    // Fonction pour se connecter
     const handleLogin = async (e) => {
         e.preventDefault();
 
         try {
+            // On récupère la réponse de l'API
             const response = await fetch('http://localhost:3000/login', {
                 method: 'POST',
                 headers: {
@@ -24,9 +26,8 @@ const LoginForm = () => {
 
             if (response.ok) {
                 const data = await response.json();
+                // On stocke le token dans le localStorage
                 localStorage.setItem('token', data.token);
-                //const decodedToken = jwtDecode(data.token);
-                //setEmail(decodedToken.email);
                 toast.success('Connexion réussie');
                 console.log('Connexion réussie');
                 setIsLoggedIn(true);
