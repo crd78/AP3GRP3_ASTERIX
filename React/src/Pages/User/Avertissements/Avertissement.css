@@ -1,0 +1,42 @@
+.UserAvertissementContainer {
+  justify-content: center;
+  margin-top: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.UserAvertissementContainer h1 {
+  font-size: 1.5em;
+  margin-bottom: 5%;
+  margin-top: 50px;
+
+}
+.UserAvertissementContainer h2 {
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+.UserAvertissementContainer button {
+  font-size: 1em;
+  background-color: #23AE4A;
+  padding: 10px 20px;
+  border-radius: 50px;
+  margin-bottom: 20px;
+  color: white;
+}
+.UserAvertissementContainer button:hover {
+  transform: scale(0.95);
+  padding: 10px 20px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.UserAvertissementContainertab  {
+  padding: 20px;
+  border: 2px solid rgb(179, 175, 175);
+  border-radius: 10px;
+  background-color: white;
+  justify-content: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}

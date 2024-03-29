@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import './Avertissement.css';
 const Avertissement = () => {
     const [Avertissements, setAvertissements] = useState([]);
 
@@ -20,13 +20,18 @@ const Avertissement = () => {
     
 
     return (
-        <div>
-            {Avertissements.map((avertissement) => (
-                <div key={avertissement.id}>
-                    <p>{avertissement.message}</p>
-                    <p>{avertissement.id_niveaux}</p>
-                </div>
-            ))}
+        <div className='UserAvertissementContainer'>
+            <h1>Avertissements</h1>
+            <div className='UserAvertissementContainertab'> 
+                {Avertissements.map((avertissement) => (
+                    <div key={avertissement.id}>
+                        <h2>Message:</h2>
+                        <p>{avertissement.message}</p>
+                        <h2>Niveau:</h2>
+                        <p>{avertissement.id_niveaux}</p>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
