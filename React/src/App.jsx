@@ -10,9 +10,9 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
-function AdminRoute({ element }) {
+export function AdminRoute({ element }) {
   const navigate = useNavigate();
-  let isAdmin = false; //remttre sur false de base
+  let isAdmin = true; //remttre sur false de base
 
   const token = localStorage.getItem('token');
 
@@ -39,6 +39,8 @@ function AdminRoute({ element }) {
 AdminRoute.propTypes = {
   element: PropTypes.element.isRequired,
 };
+
+
 
 function App() {
   return (

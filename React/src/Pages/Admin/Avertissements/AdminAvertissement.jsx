@@ -1,6 +1,8 @@
 import  { useEffect, useState } from 'react';
 import axios from 'axios';
 import './AdminAvertissement.css';
+import {toast} from 'react-toastify';
+
 
 const Avertissement = () => {
     const [Avertissements, setAvertissements] = useState([]);
@@ -59,6 +61,7 @@ const Avertissement = () => {
             alert('Veuillez entrer un niveau');
             return;
         }
+        
 
         try {
             await axios.post('http://localhost:3000/admin/CreateAvertissements', { message: newMessage, id_niveaux: newIdNiveaux });
@@ -66,9 +69,11 @@ const Avertissement = () => {
             setNewMessage('');
             setNewIdNiveaux('');
             setShowCreateForm(false);
+            toast.success("Avertissement créé");
        
         } catch (error) {
             console.error('Error creating avertissement:', error);
+            toast.error("Erreur lors de la création de l'avertissement");
         }
     };
 
@@ -95,6 +100,7 @@ const Avertissement = () => {
                             <input type="text" value={newMessage} onChange={handleInputChange} placeholder="New message" />
                             <input type="number" value={newIdNiveaux} onChange={handleInputChangeIdNiveaux} placeholder="New id_niveaux" />
                             <button type="submit">Confirmer</button>
+                           
                         </form>
                     )}
                 </div>
