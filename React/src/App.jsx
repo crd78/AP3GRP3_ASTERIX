@@ -1,7 +1,6 @@
 import Navbar from './Pages/Navbar/Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Attractions from './Pages/User/Attractions/Attractions';
-import Connexion from './Pages/Public/Connexion/Connexion';
 import Missions from './Pages/User/Missions/Mission';
 import Avertissement from './Pages/User/Avertissements/Avertissement';
 import Accueil from './Pages/Public/Accueil/Accueil';
@@ -9,6 +8,8 @@ import AdminAvertissement from './Pages/Admin/Avertissements/AdminAvertissement'
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import LoginForm from './Pages/Public/Connexion/LoginForm';
+import { Flip, ToastContainer } from 'react-toastify';
 
 export function AdminRoute({ element }) {
   const navigate = useNavigate();
@@ -46,13 +47,18 @@ function App() {
   return (
     <div className="App">
       <Navbar />
+      <ToastContainer
+        position="top-center"
+        autoClose={8000}
+        transition={Flip}
+      />
       <Router>
         <Routes>
           <Route path="/" element={<Accueil />} />
           <Route path="/attractions" element={<Attractions />} />
           <Route path="/missions" element={<Missions />} />
           <Route path="/Avertissement" element={<Avertissement />} />
-          <Route path="/Connexion" element={<Connexion />} />
+          <Route path="/login" element={<LoginForm />} />
           <Route path="/admin/avertissements" element={<AdminRoute element={<AdminAvertissement />} />} />
         </Routes>
       </Router>

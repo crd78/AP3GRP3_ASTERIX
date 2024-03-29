@@ -20,7 +20,7 @@ const Navbar = () => {
 
     }, []);
     return (
-        
+
         <nav>
             <div className="container">
                 <nav className="navbar">
@@ -30,14 +30,14 @@ const Navbar = () => {
                     
                         <a href={isAdmin ? "/admin/avertissements" : "/avertissement"} >Avertissement</a>
                     <div className="logs">
-                        <a className='inscription'href="/inscription">Connection</a>
+                        <a className='inscription' href="/login">Connection</a>
                     </div>
                     <div className="bordure"></div>
-                    
+
                 </nav>
             </div>
         </nav>
-        
+
     );
 };
 
