@@ -47,6 +47,20 @@ router.get('/avertissements', (req, res) => {
   });
 });
 
+// Route récupérant les attractions
+router.get('/attractions', (req, res) => {
+  const query = 'SELECT * FROM attractions';
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de la récupération des attractions');
+      return;
+    }
+
+    res.json(results);
+  });
+});
+
 
   
 
