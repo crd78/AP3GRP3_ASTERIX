@@ -8,11 +8,7 @@ import AdminAvertissement from './Pages/Admin/Avertissements/AdminAvertissement'
 import { UserProvider } from './assets/Context/UserContexte';
 import LoginForm from './Pages/Public/Connexion/LoginForm';
 import { Flip, ToastContainer } from 'react-toastify';
-
-
-
-
-
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -20,22 +16,21 @@ function App() {
   return (
     <div className="App">
       <UserProvider>
+      <Navbar />
         <ToastContainer
           position="top-center"
           autoClose={8000}
           transition={Flip}
         />
         <Router>
-        <Navbar />
-          <Routes>
-            <Route path="/" element={<Accueil />} />
-            <Route path="/attractions" element={<Attractions />} />
-            <Route path="/missions" element={<Missions />} />
-            <Route path="/Avertissement" element={<Avertissement />} />
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/admin/avertissements" element={<AdminAvertissement />} />
-          </Routes>
-        </Router>
+        <Routes>
+          <Route path="/" element={<Accueil />} />
+          <Route path="/attractions" element={<Attractions />} />
+          <Route path="/missions" element={<Missions />} />
+          <Route path="/Advertissement" element={<Avertissement />} />
+          <Route path="/login" element={<LoginForm />} />
+        </Routes>
+      </Router>
       </UserProvider>
     </div>
   );
