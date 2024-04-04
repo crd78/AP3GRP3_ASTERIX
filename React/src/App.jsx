@@ -27,7 +27,8 @@ function App() {
             <Route path="/" element={<Accueil />} />
             <Route path="/attractions" element={<Attractions />} />
             <Route path="/missions" element={<Missions />} />
-            <Route path="/Advertissement" element={<Avertissement />} />
+            <Route path="/Avertissement" element={<Avertissement />} />
+            <Route path="/admin/Avertissement/AdminAvertissements" element={<AdminAvertissement />} />
             <Route path="/login" element={<LoginForm />} />
           </Routes>
         </Router>

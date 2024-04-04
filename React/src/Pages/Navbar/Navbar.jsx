@@ -33,7 +33,7 @@ const Navbar = () => {
                             <a href="/missions">Missions</a>
                     
                             {isAdmin && isAdmin() && (
-                                <Link to="/admin/avertissements">Gérer Avertissement</Link>
+                                <Link to="/admin/Avertissement/AdminAvertissements">Gérer Avertissement</Link>
                             )} 
                             {isAdmin && !isAdmin() && (
                                 <Link to="/Avertissement">Avertissement</Link>
