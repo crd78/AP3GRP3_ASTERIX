@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-
-
-
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -12,23 +9,36 @@ const LoginForm = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-    
-        const response = await fetch('http://localhost:3000/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
-    
-        if (response.ok) {
-            const data = await response.json();
-            localStorage.setItem('token', data.token);
-            // ...
-        } else if (response.status === 401) {
-            // Handle unauthorized error
-            console.error('Erreur de connexion: 401');
-        } else {
-            // Handle other errors
-            console.error('Une erreur inattendue est survenue');
+
+        try {
+            const response = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                localStorage.setItem('token', data.token);
+                //const decodedToken = jwtDecode(data.token);
+                //setEmail(decodedToken.email);
+                toast.success('Connexion réussie');
+                console.log('Connexion réussie');
+                setIsLoggedIn(true);
+                setEmail('');
+                setPassword('');
+            } else {
+                console.log('ERREUR');
+                console.error('Erreur de connexion:', response.status);
+                toast.warning('Erreur de connexion');
+            }
+        } catch (error) {
+            console.error('Erreur lors de la connexion:', error);
         }
     };
 
@@ -64,8 +74,6 @@ const LoginForm = () => {
             setIsLoggedIn(true);
         }
     }, []);
-
-  
 
     return (
         <div>
