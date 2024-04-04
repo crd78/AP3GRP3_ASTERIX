@@ -16,21 +16,21 @@ function App() {
   return (
     <div className="App">
       <UserProvider>
-      <Navbar />
         <ToastContainer
           position="top-center"
           autoClose={8000}
           transition={Flip}
         />
         <Router>
-        <Routes>
-          <Route path="/" element={<Accueil />} />
-          <Route path="/attractions" element={<Attractions />} />
-          <Route path="/missions" element={<Missions />} />
-          <Route path="/Advertissement" element={<Avertissement />} />
-          <Route path="/login" element={<LoginForm />} />
-        </Routes>
-      </Router>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Accueil />} />
+            <Route path="/attractions" element={<Attractions />} />
+            <Route path="/missions" element={<Missions />} />
+            <Route path="/Advertissement" element={<Avertissement />} />
+            <Route path="/login" element={<LoginForm />} />
+          </Routes>
+        </Router>
       </UserProvider>
     </div>
   );
