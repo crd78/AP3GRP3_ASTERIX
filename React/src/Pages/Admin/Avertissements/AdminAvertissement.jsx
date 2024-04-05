@@ -2,6 +2,7 @@ import  { useEffect, useState } from 'react';
 import axios from 'axios';
 import './AdminAvertissement.css';
 import {toast} from 'react-toastify';
+import { FiEdit, FiTrash } from 'react-icons/fi';
 
 
 const Avertissement = () => {
@@ -119,9 +120,9 @@ const Avertissement = () => {
                     <button onClick={() => updateAvertissement(avertissement.id, { message: newMessage, id_niveaux: newIdNiveaux })}>Confirm</button>
                 </>
             ) : (
-                <button onClick={() => setEditing(avertissement.id)}>Update</button>
+                <button onClick={() => setEditing(avertissement.id)}><FiEdit/></button>
             )}
-            <button onClick={() => deleteAvertissement(avertissement.id)}>Delete</button>
+            <button onClick={() => deleteAvertissement(avertissement.id)}><FiTrash/></button>
         </div>
     </div>
                     ))}
