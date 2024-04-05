@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Attractions.css';
 
 const Attractions = () => {
-    // Déclaration d'un useState pour stocker les attractions
     const [attractions, setAttractions] = useState([]);
 
-    // Utilisation d'un useEffect pour récupérer les attractions
     useEffect(() => {
         const fetchAttractions = async () => {
             try {
-                // Récupération des attractions
                 const response = await fetch('http://localhost:3000/user/attractions', {
                     method: 'GET',
                     headers: {
@@ -18,10 +17,9 @@ const Attractions = () => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log("Attractions:", data)
                     setAttractions(data);
                 } else {
-                    console.error('Erreur lors de la petite des attractions:', response.status);
+                    console.error('Erreur lors de la récupération des attractions:', response.status);
                 }
             } catch (error) {
                 console.error('Erreur lors de la récupération des attractions:', error);
@@ -33,15 +31,23 @@ const Attractions = () => {
 
     return (
         <div>
-            <h1>Voici les attractions</h1>
-            <ul>
+            <h1>LES ATTRACTIONS DU PARC</h1>
+            <p>Quand nos Gaulois ne sont pas en train de repousser l’envahisseur, ils ont de quoi s’amuser :
+                découvrez nos différentes attractions, plus folles les unes que les autres… Et il y en a pour tous les goûts !</p>
+            <div className="attractions-container">
                 {attractions.map((attraction, index) => (
-                    <li key={index}>{attraction.libelle}</li>
+                    <Link to={`/attractions/${attraction.id_attraction}`} key={index} className="attraction-link">
+                        <div className="card">
+                            <img src={attraction.image} alt={`Image de ${attraction.nom}`} className="attraction-image" />
+                            <p className="card-text">{attraction.numero}</p>
+                            <h2 className="card-title">{attraction.nom}</h2>
+                            <p className="card-text">Thème : {attraction.libelle}</p>
+                        </div>
+                    </Link>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };
 
 export default Attractions;
-

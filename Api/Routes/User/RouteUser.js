@@ -49,7 +49,7 @@ router.get('/avertissements', (req, res) => {
 
 // Route récupérant les attractions
 router.get('/attractions', (req, res) => {
-  const query = 'SELECT * FROM attractions';
+  const query = 'SELECT * FROM attractions INNER JOIN themes ON attractions.id_themes = themes.id';
   db.query(query, (err, results) => {
     if (err) {
       console.error(err);
@@ -61,6 +61,24 @@ router.get('/attractions', (req, res) => {
   });
 });
 
+// Router récupérant les détails d'une attraction
+router.get('/attractions/:id', (req, res) => {
+  const query = 'SELECT * FROM attractions WHERE id_attraction = ?';
+  db.query(query, [req.params.id], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de la récupération des détails de l\'attraction');
+      return;
+    }
+
+    if (results.length === 0) {
+      res.status(404).send('Attraction non trouvée');
+      return;
+    }
+
+    res.json(results[0]);
+  });
+});
 
   
 

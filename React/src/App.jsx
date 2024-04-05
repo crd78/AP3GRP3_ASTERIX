@@ -9,6 +9,7 @@ import { UserProvider } from './assets/Context/UserContexte';
 import LoginForm from './Pages/Public/Connexion/LoginForm';
 import { Flip, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AttractionDetails from './Pages/User/Attractions/AttractionsDetails';
 
 
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/missions" element={<Missions />} />
             <Route path="/Advertissement" element={<Avertissement />} />
             <Route path="/login" element={<LoginForm />} />
+            <Route path="/attractions/:id_attraction" element={<AttractionDetails />} />
           </Routes>
         </Router>
       </UserProvider>
