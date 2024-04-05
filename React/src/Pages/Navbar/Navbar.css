@@ -1,11 +1,26 @@
 
-.container {
-    display: flex;
-    justify-content: center;
-    background-color: white;
-    padding: 10px 0;
-    border-bottom: 2px solid black;
+@media screen and (min-width: 769px) {
+    .container {
+        display: flex;
+        justify-content: center;
+        background-color: white;
+        padding: 10px 0;
+        border-bottom: 2px solid black;
+        
+    }
+    
 }
+
+@media screen and (max-width: 768px) {
+    .container {
+        display: flex;
+        background-color: white;
+        padding: 10px 0;
+        margin-top: 50px;
+    }
+    
+}
+
 
 .navbar {
     display: flex;
@@ -61,6 +76,7 @@
 @media (max-width: 768px) {
     .nav-links {
         flex-direction: column;
+        margin-top: 20px;
     }
 }
 @media (max-width: 768px) {
@@ -82,4 +98,26 @@
     .nav-links.open {
         display: flex; /* montrez le menu quand il est ouvert */
     }
+}
+
+@media  ( min-width: 769px) {
+    .MenuNav {
+        display: none;
+    }
+    
+}
+
+.MenuNav{
+    position: fixed;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    top: 0;
+    left: 0;
+    width: 50px;
+    z-index: 1;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+    transition: 0.5s;
 }

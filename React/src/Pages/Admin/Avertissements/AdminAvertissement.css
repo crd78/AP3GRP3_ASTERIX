@@ -41,11 +41,19 @@
    
   padding: 20px; /* Padding of 20px around the content of each element */
   border: 2px solid rgb(179, 175, 175); /* Grey border of 1px */
-    border-radius: 10px; /* Rounded corners of 10px */
+  border-radius: 10px; /* Rounded corners of 10px */
   background-color: white; /* White background color */
   align-items: center;
   justify-content: center;
   box-sizing: border-box; /* Include padding and border in element's total width and height */
+  transform: scale(1);
+  transition: 0.5s;
+  
+}
+
+.AffichageAvertissement:hover {
+  transform: scale(1.10);
+  transition: 0.5s;
 }
 
 
