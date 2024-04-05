@@ -8,11 +8,12 @@ import AdminAvertissement from './Pages/Admin/Avertissements/AdminAvertissement'
 import { UserProvider } from './assets/Context/UserContexte';
 import LoginForm from './Pages/Public/Connexion/LoginForm';
 import { Flip, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
 function App() {
+  
   return (
     <div className="App">
       <UserProvider>
