@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {UserContext} from '../../assets/Context/UserContexte';
 import { useContext, useEffect } from 'react';
 import { useState } from 'react';
+import logo from '../../assets/images/logoAsterix.webp';
 
 
 const Navbar = () => {
@@ -27,7 +28,9 @@ const Navbar = () => {
                         </button>
                     )}
                     {(isOpen || !isMobile) && (
+                        
                         <div className="nav-links">
+                            <img className='logo' src={logo} alt='logo'/>
                             <a href="/">Accueil</a>
                             <a href="/attractions">Attractions</a>
                             <a href="/missions">Missions</a>

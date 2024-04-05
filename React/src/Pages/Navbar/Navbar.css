@@ -28,13 +28,14 @@
 
 }
 
-.logs {
+.logo {
    position: absolute;
-    right: 0;
+    left: 0;
     margin-right: 10px;
+    top: 0;
    
 }
-.nav-links {
+.nav-links{
     display: flex;
     justify-content: space-between;
     width: 100%;
