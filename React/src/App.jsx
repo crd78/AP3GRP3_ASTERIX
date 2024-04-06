@@ -8,6 +8,8 @@ import AdminAvertissement from './Pages/Admin/Avertissements/AdminAvertissement'
 import { UserProvider } from './assets/Context/UserContexte';
 import LoginForm from './Pages/Public/Connexion/LoginForm';
 import { Flip, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AttractionDetails from './Pages/User/Attractions/AttractionsDetails';
 
 
 
@@ -31,6 +33,7 @@ function App() {
             <Route path="/Avertissement" element={<Avertissement />} />
             <Route path="/admin/Avertissement/AdminAvertissements" element={<AdminAvertissement />} />
             <Route path="/login" element={<LoginForm />} />
+            <Route path="/attractions/:id_attraction" element={<AttractionDetails />} />
           </Routes>
         </Router>
       </UserProvider>

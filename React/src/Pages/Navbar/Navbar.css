@@ -43,13 +43,27 @@
 
 }
 
-.logs {
-   position: absolute;
-    right: 0;
-    margin-right: 10px;
-   
+@media (min-width: 768px) {
+    .logo {
+        position: absolute;
+        left: 0;
+        margin-right: 10px;
+        top: 0;
+    }
+    
 }
-.nav-links {
+
+@media (max-width: 768px) {
+    .logo {
+        position: absolute;
+        right: 0;
+        margin-right: 10px;
+        top: 0;
+    }
+    
+}
+
+.nav-links{
     display: flex;
     justify-content: space-between;
     width: 100%;

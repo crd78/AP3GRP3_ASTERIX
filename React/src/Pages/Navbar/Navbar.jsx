@@ -38,6 +38,7 @@ const Navbar = () => {
                         </button>
                     )}
                     {(isOpen || !isMobile) && (
+                        
                         <div className="nav-links">
                             <Link to="/">Accueil</Link>
                             <Link to="/attractions">Attractions</Link>
