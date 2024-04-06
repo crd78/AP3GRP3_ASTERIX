@@ -5,6 +5,7 @@ import {UserContext} from '../../assets/Context/UserContexte';
 import { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { FaBars } from 'react-icons/fa';
+import logo  from '../../assets/images/logoAsterix.webp';
 
 
 
@@ -40,6 +41,7 @@ const Navbar = () => {
                     {(isOpen || !isMobile) && (
                         
                         <div className="nav-links">
+                            <img className='logo' src={logo} alt='logo'/>
                             <Link to="/">Accueil</Link>
                             <Link to="/attractions">Attractions</Link>
                             <Link to="/missions">Missions</Link>
