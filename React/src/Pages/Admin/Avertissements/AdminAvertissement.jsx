@@ -106,7 +106,7 @@ const Avertissement = () => {
                     )}
                 </div>
             
-                    {Avertissements.map((avertissement) => (
+                    {Avertissements.sort((a,b) => a.id_niveaux - b.id_niveaux).map((avertissement) => (
                         <div className="AffichageAvertissement" key={avertissement.id}>
         <div>
             <h2>Message:</h2>
