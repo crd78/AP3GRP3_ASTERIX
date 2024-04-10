@@ -23,7 +23,7 @@ const Avertissement = () => {
         <div className='UserAvertissementContainer'>
             <h1>Avertissements</h1>
             
-                {Avertissements.map((avertissement) => (
+                {Avertissements.sort((a,b) => a.id_niveaux - b.id_niveaux).map((avertissement) => (
                     <div className='UserAvertissementContainertab ' key={avertissement.id}>
                         <h2>Message:</h2>
                         <p>{avertissement.message}</p>
