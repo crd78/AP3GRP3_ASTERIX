@@ -47,3 +47,21 @@
 .card-title {
     margin: 0;
 }
+
+/* Lien sans style */
+.link-unstyled {
+    text-decoration: none;
+    /* Retirer le soulignement des liens */
+    color: inherit;
+    /* Utiliser la couleur par défaut du texte */
+}
+
+.link-unstyled:hover {
+    text-decoration: none;
+    /* Retirer le soulignement lors du survol */
+}
+
+.link-unstyled:visited {
+    color: inherit;
+    /* Utiliser la couleur par défaut du texte pour les liens visités */
+}

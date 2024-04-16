@@ -4,9 +4,13 @@ import './AttractionsDetails.css';
 
 
 const AttractionDetails = () => {
-    const { id_attraction } = useParams(); // Récupération de l'ID de l'URL avec useParams
+    // Utilisation d'un useParams pour récupérer l'ID de l'attraction
+    const { id_attraction } = useParams();
+    // Utilisation d'un useState pour stocker les détails de l'attraction
     const [attraction, setAttraction] = useState(null);
 
+
+    // Utilisation d'un useEffect pour récupérer les détails de l'attraction
     useEffect(() => {
         const fetchAttractionDetails = async () => {
             try {
@@ -28,9 +32,11 @@ const AttractionDetails = () => {
             }
         };
 
+        // Appel de la fonction fetchAttractionDetails au chargement du composant
         fetchAttractionDetails();
-    }, [id_attraction]);
+    }, [id_attraction]); // Ici, un tableau de dépendances est utilisé pour que le useEffect s'exécute à chaque changement de l'ID de l'attraction
 
+    // Si l'attraction n'est pas encore chargée, on affiche un message de chargement
     if (!attraction) {
         return <div>Loading...</div>;
     }
@@ -42,7 +48,6 @@ const AttractionDetails = () => {
             <p>Numéro de l'attraction : {attraction.numero}</p>
             <p>Description : {attraction.description}</p>
             <p>Taille minimum : {attraction.taille_minimum} cm</p>
-            {/* Autres informations à afficher ici */}
         </div>
     );
 };
