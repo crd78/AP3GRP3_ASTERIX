@@ -19,7 +19,12 @@ const Avertissement = () => {
 
     const fetchAvertissements = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/admin/avertissements');
+            const token = localStorage.getItem('token'); // Récupérez le token du localStorage
+            const response = await axios.get('http://localhost:3000/admin/avertissements', {
+                headers: {
+                    Authorization: 'Bearer ' + token // Utilisez le token pour l'autorisation
+                }
+            });
             setAvertissements(response.data);
         } catch (error) {
             console.error('Error fetching avertissements:', error);

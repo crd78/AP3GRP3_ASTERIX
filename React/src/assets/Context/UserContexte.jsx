@@ -16,6 +16,7 @@ export const UserProvider = ({ children }) => {
         if (token) {
             try {
                 const decodedToken = jwtDecode(token);
+                console.log(decodedToken);
                 setUser(decodedToken);
             } catch (error) {
                 localStorage.removeItem('token');
