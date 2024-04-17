@@ -3,14 +3,13 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const db = require('../../db');
 const cors = require('cors');
-
+const { Console } = require('winston/lib/winston/transports');
 
 let router = express.Router();
 
 router.use(cors());
 
 router.use(express.json());
-
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
@@ -80,7 +79,52 @@ router.get('/attractions/:id', (req, res) => {
   });
 });
 
-  
+
+
+
+
+
+
+
+function getIdSession(token) {
+  try {
+    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    const userId = decodedToken.id;
+    return userId;
+  } catch (error) {
+    console.error('Erreur lors de la récupération de l\'ID de l\'utilisateur:', error);
+    return null;
+  }
+}
+
+
+
+
+router.get('/missions', authenticateToken, (req, res) => {
+  // const userId = req.user.id; // Récupérer l'ID de l'utilisateur du token
+  const query = `
+    SELECT M.libelle, M.description
+    FROM missions M
+    where M.id IN (SELECT A.id_missions FROM affectations A WHERE
+   					A.id_utilisateurs = 2)`;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Erreur SQL:", err); // Afficher l'erreur SQL
+      res.status(500).json({ message: 'Erreur lors de la récupération des missions' });
+      return;
+    }
+
+    if (results.length === 0) {
+      res.status(404).json({ message: 'Mission non trouvée' });
+      return;
+    }
+
+    res.json(results);
+  });
+});
+
+
 
 
 
@@ -88,4 +132,3 @@ router.get('/attractions/:id', (req, res) => {
 
 
 module.exports = router;
-
