@@ -33,7 +33,12 @@ const Avertissement = () => {
 
     const updateAvertissement = async (id, data) => {
         try {
-            await axios.put(`http://localhost:3000/admin/ModifAvertissements/${id}`, data);
+            const token = localStorage.getItem('token'); // Récupérez le token du localStorage
+            await axios.put(`http://localhost:3000/admin/ModifAvertissements/${id}`, data, {
+                headers: {
+                    Authorization: 'Bearer ' + token // Utilisez le token pour l'autorisation
+                }
+            });
             fetchAvertissements();
             setEditing(null);
         } catch (error) {
@@ -41,11 +46,15 @@ const Avertissement = () => {
         }
     };
 
-    const deleteAvertissement = async (id, data) => {
+    const deleteAvertissement = async (id) => {
         try {
-            await axios.delete(`http://localhost:3000/admin/DelAvertissements/${id}`, data);
+            const token = localStorage.getItem('token'); // Récupérez le token du localStorage
+            await axios.delete(`http://localhost:3000/admin/DelAvertissements/${id}`, {
+                headers: {
+                    Authorization: 'Bearer ' + token // Utilisez le token pour l'autorisation
+                }
+            });
             fetchAvertissements();
-            
         } catch (error) {
             console.error('Error deleting avertissement:', error);
         }
@@ -70,7 +79,13 @@ const Avertissement = () => {
         
 
         try {
-            await axios.post('http://localhost:3000/admin/CreateAvertissements', { message: newMessage, id_niveaux: newIdNiveaux });
+            const token = localStorage.getItem('token'); // Récupérez le token du localStorage
+            await axios.post('http://localhost:3000/admin/CreateAvertissements', { message: newMessage, id_niveaux: newIdNiveaux }); {
+                headers: {
+                    Authorization: 'Bearer ' + token // Utilisez le token pour l'autorisation
+                }
+
+            }
             fetchAvertissements();
             setNewMessage('');
             setNewIdNiveaux('');

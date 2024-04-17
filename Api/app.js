@@ -16,7 +16,7 @@ app.use(cors());
 
 function generateToken(utilisateurs){
   console.log('Génération du token pour l\'utilisateur :', utilisateurs, 'avec le rôle :', utilisateurs.id_roles);
-  return jwt.sign({ id: utilisateurs.id, role: utilisateurs.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3s' });
+  return jwt.sign({ id: utilisateurs.id, role: utilisateurs.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '300000s' });
 }
 
 app.get('/jwt', (req, res) => {
