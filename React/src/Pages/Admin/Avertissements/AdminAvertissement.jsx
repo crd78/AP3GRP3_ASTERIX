@@ -60,14 +60,14 @@ const Avertissement = () => {
         }
     };
 
-    const createAvertissement = async () => {
+    const createAvertissement = async (event) => {
         event.preventDefault();
-
+    
         if (!newMessage) {
             alert('Veuillez entrer un message');
             return;
         }
-
+    
         if (!(newIdNiveaux > 0 && newIdNiveaux < 5 )) {
             alert('Veuillez entrer un niveau entre 1 et 4');
             return;
@@ -76,16 +76,14 @@ const Avertissement = () => {
             alert('Veuillez entrer un niveau');
             return;
         }
-        
-
+    
         try {
             const token = localStorage.getItem('token'); // Récupérez le token du localStorage
-            await axios.post('http://localhost:3000/admin/CreateAvertissements', { message: newMessage, id_niveaux: newIdNiveaux }); {
+            await axios.post('http://localhost:3000/admin/CreateAvertissements', { message: newMessage, id_niveaux: newIdNiveaux }, {
                 headers: {
                     Authorization: 'Bearer ' + token // Utilisez le token pour l'autorisation
                 }
-
-            }
+            });
             fetchAvertissements();
             setNewMessage('');
             setNewIdNiveaux('');
