@@ -5,6 +5,19 @@ import { Link } from 'react-router-dom';
 const Mission = () => {
     const [missions, setMissions] = useState([]);
     const [error, setError] = useState(null);
+    // Création d'un objet Date
+    let date = new Date();
+
+    // Configuration du fuseau horaire de Paris (UTC+2 en été)
+    let options = { timeZone: 'Europe/Paris' };
+
+    // Conversion de la date en heure locale de Paris
+    let dateLocaleParis = date.toLocaleString('fr-FR', {...options,
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+    });
+
 
     useEffect(() => {
         const fetchMissions = async () => {
@@ -30,6 +43,8 @@ const Mission = () => {
             }
         };
 
+
+
         fetchMissions();
     }, []);
 
@@ -39,7 +54,8 @@ const Mission = () => {
 
     return (
         <div>
-            <h1>Missions</h1>
+            
+            <h1>Missions du {dateLocaleParis}</h1>
             <ul>
                 {missions.map((mission) => (
                     <li key={mission.id}>
