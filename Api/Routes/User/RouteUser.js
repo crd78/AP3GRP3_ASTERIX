@@ -79,13 +79,6 @@ router.get('/attractions/:id', (req, res) => {
   });
 });
 
-
-
-
-
-
-
-
 function getIdSession(token) {
   try {
     const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
@@ -99,16 +92,7 @@ function getIdSession(token) {
 
 
 
-router.get('/test', (req, res) => {  
-  // recupérer le token dans une variable : 
-  // verifier le token
-  const userId = getIdSession('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6MiwiaWF0IjoxNzEzNDI4NDIwLCJleHAiOjE3MTM3Mjg0MjB9.yt5xOBn8hfPkG6iRAlkgLXvY-7Kdlfl2oyJrOvB5H_A');
-  console.log('ID de l\'utilisateur:', userId);
 
-
-
-res.send('ok');
-});  
   router.get('/missions', (req, res) => {
     const token = req.headers['authorization'].split(' ')[1];
     console.log('Bearer:', req.headers['authorization']);
@@ -132,7 +116,7 @@ console.log('ID de l\'utilisateur:', userId)
 
     if (results.length === 0) {
       res.status(404).json({ message: 'Mission non trouvée' });
-      return;
+      return; 
     }
     console.log('results:', results);
     res.json(results);
