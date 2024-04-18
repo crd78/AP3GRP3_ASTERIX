@@ -99,16 +99,31 @@ function getIdSession(token) {
 
 
 
+router.get('/test', (req, res) => {  
+  // recupérer le token dans une variable : 
+  // verifier le token
+  const userId = getIdSession('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6MiwiaWF0IjoxNzEzNDI4NDIwLCJleHAiOjE3MTM3Mjg0MjB9.yt5xOBn8hfPkG6iRAlkgLXvY-7Kdlfl2oyJrOvB5H_A');
+  console.log('ID de l\'utilisateur:', userId);
 
-router.get('/missions', authenticateToken, (req, res) => {
-  // const userId = req.user.id; // Récupérer l'ID de l'utilisateur du token
+
+
+res.send('ok');
+});  
+  router.get('/missions', (req, res) => {
+    const token = req.headers['authorization'].split(' ')[1];
+    console.log('Bearer:', req.headers['authorization']);
+    console.log('Token:', token);
+    const userId = getIdSession(token);
+console.log('ID de l\'utilisateur:', userId)
   const query = `
-    SELECT M.libelle, M.description
+    SELECT M.libelle, M.description, M.id
     FROM missions M
-    where M.id IN (SELECT A.id_missions FROM affectations A WHERE
-   					A.id_utilisateurs = 2)`;
+    WHERE M.id IN (SELECT A.id_missions FROM affectations A WHERE A.id_utilisateurs = ?
+    AND DATE(A.date_jour) = CURDATE() )
+   
+    `;
 
-  db.query(query, (err, results) => {
+  db.query(query, [userId], (err, results) => {
     if (err) {
       console.error("Erreur SQL:", err); // Afficher l'erreur SQL
       res.status(500).json({ message: 'Erreur lors de la récupération des missions' });
@@ -119,7 +134,7 @@ router.get('/missions', authenticateToken, (req, res) => {
       res.status(404).json({ message: 'Mission non trouvée' });
       return;
     }
-
+    console.log('results:', results);
     res.json(results);
   });
 });
@@ -131,4 +146,28 @@ router.get('/missions', authenticateToken, (req, res) => {
 
 
 
+
 module.exports = router;
+  // const userId = req.user.id; // Récupérer l'ID de l'utilisateur du token
+  // console.log('ID de l\'utilisateur:', userId);
+  // const query = `
+  //   SELECT M.libelle, M.description
+  //   FROM missions M
+  //   where M.id IN (SELECT A.id_missions FROM affectations A WHERE
+  //  	A.id_utilisateurs = ?)`;
+    
+
+  // db.query(query,[userId], (err, results) => {
+  //   if (err) {
+  //     console.error("Erreur SQL:", err); // Afficher l'erreur SQL
+  //     res.status(500).json({ message: 'Erreur lors de la récupération des missions' });
+  //     return;
+  //   }
+
+  //   if (results.length === 0) {
+  //     res.status(404).json({ message: 'Mission non trouvée' });
+  //     return;
+  //   }
+
+  //   res.json(results);
+  // });

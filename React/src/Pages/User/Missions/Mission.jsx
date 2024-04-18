@@ -10,10 +10,11 @@ const Mission = () => {
         const fetchMissions = async () => {
             try {
                 const token = localStorage.getItem('token'); // Récupérer le token depuis le localStorage ou un autre endroit
-                const response = await fetch('http://localhost:3000/user/missions', {
+                const response = await fetch('http://localhost:3000/User/missions', {
                     headers: {
                         'authorization': `Bearer ${token}`
-                    }
+                    },
+                    method: 'GET',
                 });
 
                 if (!response.ok) {
@@ -44,6 +45,11 @@ const Mission = () => {
                     <li key={mission.id}>
                         <h2>{mission.libelle}</h2>
                         <p>{mission.description}</p>
+                        {/* Cekcbox pour  prendre cette mission  */}
+                        <Link to={`/mission/${mission.id}`}>Prendre cette mission</Link>
+                        {/* boutton pour dire que la mission est terminé  */}
+                        <button>Mission Finis</button>
+
                     </li>
                 ))}
             </ul>
