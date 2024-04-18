@@ -117,6 +117,21 @@ router.post('/CreateAvertissements',verifyAdmin, (req, res) => {
   });
 });
 
+router.get('/admin/affectations',verifyAdmin, (req, res) => {
+  const queryMissions = 'SELECT * FROM Missions';
+  const utilisateurs = 'SELECT * FROM utilisateurs';
+  
+  // db.query(queryMissions, (err, results) => {
+  //   if (err) {
+  //     console.error(err);
+  //     res.status(500).send('Erreur lors de la récupération des alerts');
+  //     return;
+  //   }
+
+  //   res.json(results);
+  // });
+});
+
 
 
 // Exportez le routeur au lieu de l'application
