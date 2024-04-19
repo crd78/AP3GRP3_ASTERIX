@@ -44,7 +44,7 @@ const Attractions = () => {
                 <input type="text" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Filtrer les attractions" />
             <div className="attractions-container">
                 {/* Pour chaque attraction dans la liste d'attractions, générer un composant de lien */}
-                {attractions.filter(attraction => attraction.libelle.includes(filter)).map((attraction, index)  => (
+                {attractions.filter(attraction => attraction.nom.includes(filter)).map((attraction, index)  => (
                     <Link to={`/attractions/${attraction.id_attraction}`} key={index} className="attraction-link link-unstyled">
                         <div className="card">
                             <img src={attraction.image} alt={`Image de ${attraction.nom}`} className="attraction-image" />
