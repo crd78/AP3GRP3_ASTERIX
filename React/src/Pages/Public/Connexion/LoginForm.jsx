@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import './LoginForm.css';
+import AsterixLogoConnexion from '../../../assets/images/AsterixLogoConnexion.png';
+
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -76,38 +79,48 @@ const LoginForm = () => {
     }, []);
 
     return (
-        <div>
-            {isLoggedIn ? (
-                <div>
-                    <p>Vous êtes connecté</p>
-                    <button onClick={handleLogout}>Déconnexion</button>
-                </div>
-            ) : (
-                <form onSubmit={handleLogin}>
-                    <div className='caca'>
+        <div className="connexion-container">
+            <div className="image-container">
+                <img src={AsterixLogoConnexion} className='asterixConnexion' alt="Ajouter un utilisateur" />
+            </div>
+
+            <div className="form-container">
+                {isLoggedIn ? (
+                    <div>
+                        <p>Vous êtes connecté</p>
+                        <button onClick={handleLogout}>Déconnexion</button>
+                    </div>
+                ) : (
+
+                    <form onSubmit={handleLogin} className='loginForm'>
+
                         <h1>Connexion</h1>
-                        <label htmlFor="email">Email:</label>
+
                         <input
                             type="email"
                             id="email"
+                            placeholder='Email'
                             value={email}
                             onChange={(event) => setEmail(event.target.value)}
+                            className='email'
                         />
-                    </div>
-                    <div>
-                        <label htmlFor="password">Mot de passe:</label>
+
                         <input
                             type="password"
                             id="password"
+                            placeholder='Mot de passe'
                             value={password}
                             onChange={(event) => setPassword(event.target.value)}
+                            className='password'
+
                         />
-                    </div>
-                    <button type="submit">Se connecter</button>
-                </form>
-            )}
+                        <button type="submit" className='seConnecter'>Se connecter</button>
+                    </form>
+                )}
+            </div>
         </div>
     );
+
 }
 
 export default LoginForm;

@@ -1,0 +1,49 @@
+/* Style du conteneur principal */
+.connexion-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Style du conteneur de l'image */
+.image-container {
+    margin-left: 105px;
+    width: 30%;
+}
+
+.asterixConnexion {
+    width: 70%;
+}
+
+/* Style du formulaire */
+
+
+.email {
+    width: 100%;
+}
+
+.password {
+    width: 100%;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+}
+
+.loginForm {
+    width: 300px;
+    padding-left: 70px;
+    padding-right: 70px;
+    padding-bottom: 10px;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+.seConnecter {
+    padding: 8px 16px;
+    background-color: #23AE4A;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
