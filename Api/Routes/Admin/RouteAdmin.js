@@ -132,7 +132,33 @@ router.get('/admin/affectations',verifyAdmin, (req, res) => {
   // });
 });
 
+// Route pour affecter un utilisateur à une mission
+router.post('/admin/affectations', verifyAdmin, (req, res) => {
+  // Extraire les données de la requête
+  const { id_utilisateurs, id_missions, date_jour, commentaires } = req.body;
 
+  // Vérifier si les données nécessaires sont fournies
+  if (!id_utilisateurs || !id_missions || !date_jour) {
+    return res.status(400).json({ message: 'Tous les champs sont obligatoires' });
+  }
+
+  // Créer la requête SQL pour insérer une nouvelle affectation
+  const query = `
+    INSERT INTO affectations (id_utilisateurs, id_missions, date_jour, commentaires)
+    VALUES (?, ?, ?, ?)
+  `;
+
+  // Exécuter la requête SQL
+  db.query(query, [id_utilisateurs, id_missions, date_jour, commentaires], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: 'Erreur lors de la création de l\'affectation' });
+    }
+
+    // Retourner la réponse
+    res.status(201).json({ message: 'Affectation créée avec succès', id: result.insertId });
+  });
+});
 
 // Exportez le routeur au lieu de l'application
 module.exports = router;

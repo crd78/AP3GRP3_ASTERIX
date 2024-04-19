@@ -130,31 +130,7 @@ function getIdSession(token) {
 
 
 module.exports = router;
-  // const userId = req.user.id; // Récupérer l'ID de l'utilisateur du token
-  // console.log('ID de l\'utilisateur:', userId);
-  // const query = `
-  //   SELECT M.libelle, M.description
-  //   FROM missions M
-  //   where M.id IN (SELECT A.id_missions FROM affectations A WHERE
-  //  	A.id_utilisateurs = ?)`;
-    
 
-  // db.query(query,[userId], (err, results) => {
-  //   if (err) {
-  //     console.error("Erreur SQL:", err); // Afficher l'erreur SQL
-  //     res.status(500).json({ message: 'Erreur lors de la récupération des missions' });
-  //     return;
-  //   }
-
-  //   if (results.length === 0) {
-  //     res.status(404).json({ message: 'Mission non trouvée' });
-  //     return;
-  //   }
-
-  //   res.json(results);
-  // });
-
-  // ...
 
 router.put('/missions/:id/complete', authenticateToken, (req, res) => {
 
