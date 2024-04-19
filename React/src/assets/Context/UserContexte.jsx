@@ -1,7 +1,7 @@
 
 
 import { createContext, useState, useEffect } from 'react';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import PropTypes from 'prop-types';
 
 export const UserContext = createContext();
@@ -12,7 +12,7 @@ export const UserProvider = ({ children }) => {
 
 
     useEffect(() => {
-        
+
         if (token) {
             try {
                 const decodedToken = jwtDecode(token);
@@ -23,7 +23,7 @@ export const UserProvider = ({ children }) => {
             }
         }
     }, [token]);
-  
+
     const isAdmin = () => {
         return user && user.role == 2;
     };

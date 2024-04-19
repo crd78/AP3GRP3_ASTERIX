@@ -118,6 +118,77 @@ router.post('/CreateAvertissements',verifyAdmin, (req, res) => {
 });
 
 
+// Route permettant de récupérer les utilisateurs
+router.get('/utilisateurs', (req, res) => {
+  const query = 'SELECT * FROM utilisateurs';
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de la récupération des utilisateurs');
+      return;
+    }
+
+    res.json(results);
+  });
+});
+
+// Route permettant de récupérer les utilsateurs par leur id
+router.get('/USERS/:id', (req, res) => {
+  const query = 'SELECT * FROM utilisateurs WHERE id = ?';
+  db.query(query, [req.params.id], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de la récupération de l\'utilisateur');
+      return;
+    }
+
+    res.json(results[0]);
+  });
+});
+
+// Route permettant de modifier un utilisateur
+router.put('/modifierUtilisateur/:id', (req, res) => {
+  const query = 'UPDATE utilisateurs SET prenom = ?, nom = ?, email = ?, code_postal = ?, ville = ?, adresse = ? WHERE id = ?';
+  db.query(query, [req.body.prenom, req.body.nom, req.body.email, req.body.code_postal, req.body.ville, req.body.adresse, req.params.id], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de la modification de l\'utilisateur');
+      return;
+    }
+
+    res.status(200).send('Utilisateur modifié');
+  });
+});
+
+
+// Route permettant de supprimer un utilisateur
+router.delete('/supprimerUtilisateur/:id', (req, res) => {
+  const query = 'DELETE FROM utilisateurs WHERE id = ?';
+  db.query(query, [req.params.id], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de la suppression de l\'utilisateur');
+      return;
+    }
+
+    res.status(200).send('Utilisateur supprimé');
+  });
+});
+
+// Route permettant d'ajouter un utilisateur
+router.post('/ajouterUtilisateur', (req, res) => {
+  const query = 'INSERT INTO utilisateurs (prenom, nom, email, password, code_postal, ville, adresse, id_roles, id_metiers) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  db.query(query, [req.body.prenom, req.body.nom, req.body.password, req.body.email, req.body.code_postal, req.body.ville, req.body.adresse, req.body.id_roles, req.body.id_metiers], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de l\'ajout de l\'utilisateur');
+      return;
+    }
+
+    res.status(200).send('Utilisateur ajouté');
+  });
+});
+
 
 // Exportez le routeur au lieu de l'application
 module.exports = router;
