@@ -1,0 +1,59 @@
+/* Style du conteneur des éléments */
+.container {
+    display: flex;
+}
+
+
+/* Style de l'image */
+.image-container {
+    margin-left: 105px;
+    width: 30%;
+}
+
+.asterixInscription {
+    width: 70%;
+}
+
+/* Style du formulaire */
+.formulaire-container {
+    flex-grow: 1;
+    /* Permet au formulaire de prendre autant d'espace que possible */
+}
+
+/* Style des titres */
+h1,
+h2 {
+    text-align: center;
+}
+
+/* Style des formulaires */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+/* Style des champs de saisie */
+input {
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 4px;
+    width: 40%;
+    text-align: center;
+}
+
+/* Style des boutons */
+button {
+    padding: 8px 16px;
+    background-color: #23AE4A;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+/* Style des boutons au survol */
+button:hover {
+    background-color: #1E7E34;
+}
