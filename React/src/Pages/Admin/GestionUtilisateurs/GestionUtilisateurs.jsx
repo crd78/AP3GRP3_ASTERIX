@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import './GestionUtilisateurs.css';
+import AsterixLogoInscription from '../../../assets/images/AsterixLogoInscription.png';
+
 
 const GestionUtilisateurs = () => {
     const [utilisateurs, setUtilisateurs] = useState([]);
@@ -119,65 +122,75 @@ const GestionUtilisateurs = () => {
     };
 
     return (
-        <div>
+        <div className='gestion-utilisateurs'>
             <h1>Gestion des utilisateurs</h1>
 
-            <div>
-                <h2>Ajouter un utilisateur</h2>
-                <form onSubmit={ajouterUtilisateur}>
-                    <input type="text" name="nom" value={nouvelUtilisateur.nom} onChange={handleInputChangeNouvelUtilisateur} placeholder="Nom" />
-                    <input type="text" name="prenom" value={nouvelUtilisateur.prenom} onChange={handleInputChangeNouvelUtilisateur} placeholder="Prénom" />
-                    <input type="email" name="email" value={nouvelUtilisateur.email} onChange={handleInputChangeNouvelUtilisateur} placeholder="Email" />
-                    <input type="text" name="password" value={nouvelUtilisateur.password} onChange={handleInputChangeNouvelUtilisateur} placeholder="Password" />
-                    <input type="number" name="code_postal" value={nouvelUtilisateur.code_postal} onChange={handleInputChangeNouvelUtilisateur} placeholder="Code Postal" />
-                    <input type="text" name="adresse" value={nouvelUtilisateur.adresse} onChange={handleInputChangeNouvelUtilisateur} placeholder="Adresse" />
-                    <input type="number" name="id_roles" value={nouvelUtilisateur.id_roles} onChange={handleInputChangeNouvelUtilisateur} placeholder="Rôle" />
-                    <input type="number" name="id_metiers" value={nouvelUtilisateur.id_metiers} onChange={handleInputChangeNouvelUtilisateur} placeholder="Métier" />
+            <div className='container'>
+                <div className='image-container'>
+                    <img src={AsterixLogoInscription} className='asterixInscription' alt="Ajouter un utilisateur" />
+                </div>
 
-                    <button type="submit">Ajouter</button>
-                </form>
+                <div className='formulaire-container'>
+                    <h2>Ajouter un utilisateur</h2>
+                    <form onSubmit={ajouterUtilisateur}>
+                        <input type="text" name="nom" value={nouvelUtilisateur.nom} onChange={handleInputChangeNouvelUtilisateur} placeholder="Nom" />
+                        <input type="text" name="prenom" value={nouvelUtilisateur.prenom} onChange={handleInputChangeNouvelUtilisateur} placeholder="Prénom" />
+                        <input type="email" name="email" value={nouvelUtilisateur.email} onChange={handleInputChangeNouvelUtilisateur} placeholder="Email" />
+                        <input type="text" name="password" value={nouvelUtilisateur.password} onChange={handleInputChangeNouvelUtilisateur} placeholder="Password" />
+                        <input type="number" name="code_postal" value={nouvelUtilisateur.code_postal} onChange={handleInputChangeNouvelUtilisateur} placeholder="Code Postal" />
+                        <input type="text" name="adresse" value={nouvelUtilisateur.adresse} onChange={handleInputChangeNouvelUtilisateur} placeholder="Adresse" />
+                        <input type="number" name="id_roles" value={nouvelUtilisateur.id_roles} onChange={handleInputChangeNouvelUtilisateur} placeholder="Rôle" />
+                        <input type="number" name="id_metiers" value={nouvelUtilisateur.id_metiers} onChange={handleInputChangeNouvelUtilisateur} placeholder="Métier" />
+                        <button type="submit">Ajouter</button>
+                    </form>
+                </div>
             </div>
 
-
             <h2>Liste des utilisateurs</h2>
-            <ul>
-                {utilisateurs.map((utilisateur) => (
-                    <li key={utilisateur.id}>
-                        {/* Afficher les informations de l'utilisateur */}
-                        {utilisateur.nom} {utilisateur.prenom} ({utilisateur.email})
-                        <button onClick={() => handleEditClick(utilisateur)}>Modifier</button>
-                        <button onClick={() => handleDeleteClick(utilisateur.id)}>Supprimer</button>
-                    </li>
-                ))}
-            </ul>
+            <div className='liste_utilisateurs'>
+                <ul>
+                    {utilisateurs.map((utilisateur) => (
+                        <li key={utilisateur.id}>
+                            {/* Afficher les informations de l'utilisateur */}
+                            {utilisateur.nom} {utilisateur.prenom} ({utilisateur.email})
+                            <button onClick={() => handleEditClick(utilisateur)}>Modifier</button>
+                            <button onClick={() => handleDeleteClick(utilisateur.id)}>Supprimer</button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
             {selectedUser && (
-                <form onSubmit={handleSubmit}>
-                    <label>
-                        Nom:
-                        <input type="text" name="nom" value={editedUserData.nom} onChange={handleInputChange} />
-                    </label>
-                    <label>
-                        Prénom:
-                        <input type="text" name="prenom" value={editedUserData.prenom} onChange={handleInputChange} />
-                    </label>
-                    <label>
-                        Email:
-                        <input type="email" name="email" value={editedUserData.email} onChange={handleInputChange} />
-                    </label>
-                    <label>
-                        Code Postal:
-                        <input type="text" name="code_postal" value={editedUserData.code_postal} onChange={handleInputChange} />
-                    </label>
-                    <label>
-                        Ville:
-                        <input type="text" name="ville" value={editedUserData.ville} onChange={handleInputChange} />
-                    </label>
-                    <label>
-                        Adresse:
-                        <input type="text" name="adresse" value={editedUserData.adresse} onChange={handleInputChange} />
-                    </label>
-                    <button type="submit" disabled={loading}>Enregistrer</button>
-                </form>
+                <div className='formulaire-container'>
+                    <h2>Modifier l'utilisateur</h2>
+                    <form onSubmit={handleSubmit}>
+                        <label>
+                            Nom:
+                            <input type="text" name="nom" value={editedUserData.nom} onChange={handleInputChange} />
+                        </label>
+                        <label>
+                            Prénom:
+                            <input type="text" name="prenom" value={editedUserData.prenom} onChange={handleInputChange} />
+                        </label>
+                        <label>
+                            Email:
+                            <input type="email" name="email" value={editedUserData.email} onChange={handleInputChange} />
+                        </label>
+                        <label>
+                            Code Postal:
+                            <input type="text" name="code_postal" value={editedUserData.code_postal} onChange={handleInputChange} />
+                        </label>
+                        <label>
+                            Ville:
+                            <input type="text" name="ville" value={editedUserData.ville} onChange={handleInputChange} />
+                        </label>
+                        <label>
+                            Adresse:
+                            <input type="text" name="adresse" value={editedUserData.adresse} onChange={handleInputChange} />
+                        </label>
+                        <button type="submit" disabled={loading}>Enregistrer</button>
+                    </form>
+                </div>
             )}
         </div>
     );
