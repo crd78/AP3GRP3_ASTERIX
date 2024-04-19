@@ -23,7 +23,7 @@ function authenticateToken(req, res, next) {
       return res.sendStatus(403);
     }
 
-    console.log('Utilisateurs:', utilisateurs); // Log the user object
+    // console.log('Utilisateurs:', utilisateurs); // Log the user object
 
     req.utilisateurs = utilisateurs;
 
@@ -95,22 +95,20 @@ function getIdSession(token) {
 
   router.get('/missions', (req, res) => {
     const token = req.headers['authorization'].split(' ')[1];
-    console.log('Bearer:', req.headers['authorization']);
-    console.log('Token:', token);
     const userId = getIdSession(token);
-console.log('ID de l\'utilisateur:', userId)
+
+    console.log('id: ', userId);
+
   const query = `
     SELECT M.libelle, M.description, M.id
     FROM missions M
-    WHERE M.id IN (SELECT A.id_missions FROM affectations A WHERE A.id_utilisateurs = ?
-    AND DATE(A.date_jour) = CURDATE() )
-   
+    WHERE M.id IN (SELECT A.id_missions FROM affectations A WHERE A.id_utilisateurs = ?)
     `;
 
   db.query(query, [userId], (err, results) => {
     if (err) {
       console.error("Erreur SQL:", err); // Afficher l'erreur SQL
-      res.status(500).json({ message: 'Erreur lors de la récupération des missions' });
+      res.status(500).json({ message: 'Vous n\'avez pas de missions !' });
       return;
     }
 
@@ -155,3 +153,31 @@ module.exports = router;
 
   //   res.json(results);
   // });
+
+  // ...
+
+router.put('/missions/:id/complete', authenticateToken, (req, res) => {
+
+  const missionId = req.params.id;
+
+  const query = 'UPDATE affectations SET est_valide = 1 WHERE id_missions = ?';
+  
+  db.query(query, [missionId], (err, results) => {
+      if (err) {
+          console.error('Erreur lors de la mise à jour de la mission:', err);
+          res.status(500).json({ message: 'Erreur lors de la mise à jour de la mission' });
+          return;
+      }
+
+      if (results.affectedRows === 0) {
+          res.status(404).json({ message: 'Mission non trouvée' });
+          return;
+      }
+
+      console.log('nickel')
+
+      return res.json({ message: 'Mission mise à jour avec succès' });
+  });
+});
+
+// ...
