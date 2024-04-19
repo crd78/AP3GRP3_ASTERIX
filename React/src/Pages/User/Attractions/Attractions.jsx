@@ -5,6 +5,7 @@ import './Attractions.css';
 const Attractions = () => {
     // Ajout d'un useState pour stocker les attractions
     const [attractions, setAttractions] = useState([]);
+    const [filter, setFilter] = useState(''); 
 
     // Ajout d'un useEffect pour récupérer les attractions
     useEffect(() => {
@@ -40,9 +41,10 @@ const Attractions = () => {
             <h1>LES ATTRACTIONS DU PARC</h1>
             <p>Quand nos Gaulois ne sont pas en train de repousser l’envahisseur, ils ont de quoi s’amuser :
                 découvrez nos différentes attractions, plus folles les unes que les autres… Et il y en a pour tous les goûts !</p>
+                <input type="text" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Filtrer les attractions" />
             <div className="attractions-container">
                 {/* Pour chaque attraction dans la liste d'attractions, générer un composant de lien */}
-                {attractions.map((attraction, index) => (
+                {attractions.filter(attraction => attraction.nom.includes(filter)).map((attraction, index)  => (
                     <Link to={`/attractions/${attraction.id_attraction}`} key={index} className="attraction-link link-unstyled">
                         <div className="card">
                             <img src={attraction.image} alt={`Image de ${attraction.nom}`} className="attraction-image" />
