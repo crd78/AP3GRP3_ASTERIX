@@ -89,7 +89,7 @@ const Avertissement = () => {
     return (
         <div className='AdminAdvertMargin'>
             <div className='AdvertAdminContainer'>
-                <h1>Admin Avertissements</h1>
+                <h1>Gestion des Avertissements</h1>
                 <div className="CreeAvertissement">
                     {!showCreateForm && (
                         <button onClick={() => setShowCreateForm(true)}>Create

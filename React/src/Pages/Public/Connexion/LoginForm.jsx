@@ -80,7 +80,7 @@ const LoginForm = () => {
 
     return (
         <div className="connexion-container">
-            <div className="image-container">
+            <div className="image-containerLogin">
                 <img src={AsterixLogoConnexion} className='asterixConnexion' alt="Ajouter un utilisateur" />
             </div>
 

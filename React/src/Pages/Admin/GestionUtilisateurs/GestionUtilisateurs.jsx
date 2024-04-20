@@ -3,6 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import './GestionUtilisateurs.css';
 import AsterixLogoInscription from '../../../assets/images/AsterixLogoInscription.png';
+import { FiEdit, FiTrash } from 'react-icons/fi';
 
 
 const GestionUtilisateurs = () => {
@@ -125,7 +126,7 @@ const GestionUtilisateurs = () => {
         <div className='gestion-utilisateurs'>
             <h1>Gestion des utilisateurs</h1>
 
-            <div className='container'>
+            <div className='container-ajoutUser'>
                 <div className='image-container'>
                     <img src={AsterixLogoInscription} className='asterixInscription' alt="Ajouter un utilisateur" />
                 </div>
@@ -141,24 +142,50 @@ const GestionUtilisateurs = () => {
                         <input type="text" name="adresse" value={nouvelUtilisateur.adresse} onChange={handleInputChangeNouvelUtilisateur} placeholder="Adresse" />
                         <input type="number" name="id_roles" value={nouvelUtilisateur.id_roles} onChange={handleInputChangeNouvelUtilisateur} placeholder="Rôle" />
                         <input type="number" name="id_metiers" value={nouvelUtilisateur.id_metiers} onChange={handleInputChangeNouvelUtilisateur} placeholder="Métier" />
-                        <button type="submit">Ajouter</button>
+                        <button className="btnAjouter" type="submit">Ajouter</button>
                     </form>
                 </div>
             </div>
 
+
+            <hr className='hr'></hr>
+
+
             <h2>Liste des utilisateurs</h2>
             <div className='liste_utilisateurs'>
-                <ul>
-                    {utilisateurs.map((utilisateur) => (
-                        <li key={utilisateur.id}>
-                            {/* Afficher les informations de l'utilisateur */}
-                            {utilisateur.nom} {utilisateur.prenom} ({utilisateur.email})
-                            <button onClick={() => handleEditClick(utilisateur)}>Modifier</button>
-                            <button onClick={() => handleDeleteClick(utilisateur.id)}>Supprimer</button>
-                        </li>
-                    ))}
-                </ul>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Email</th>
+                            <th>Modifier</th>
+                            <th>Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {utilisateurs.map((utilisateur) => (
+                            <tr key={utilisateur.id}>
+                                <td>{utilisateur.nom}</td>
+                                <td>{utilisateur.prenom}</td>
+                                <td>{utilisateur.email}</td>
+                                <td>
+                                    <button className='btn' onClick={() => handleEditClick(utilisateur)}>
+                                        <FiEdit />
+                                    </button>
+                                </td>
+                                <td>
+                                    <button className='btn' onClick={() => handleDeleteClick(utilisateur.id)}>
+                                        <FiTrash />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+
             </div>
+
 
             {selectedUser && (
                 <div className='formulaire-container'>
@@ -197,3 +224,4 @@ const GestionUtilisateurs = () => {
 };
 
 export default GestionUtilisateurs;
+

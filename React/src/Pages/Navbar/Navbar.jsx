@@ -37,9 +37,7 @@ const Navbar = () => {
                             <Link to="/">Accueil</Link>
                             <Link to="/attractions">Attractions</Link>
                             <Link to="/missions">Missions</Link>
-                            {isAdmin && isAdmin() && (
-                                <Link to="/admin/Avertissement/AdminAvertissements">Gérer Avertissement</Link>
-                            )}
+                            <Link to="/avertissements">Avertissements</Link>
                             <div className="Connexion">
                                 {isAdmin && isAdmin() ? (
                                     <Link to="/admin/Dashboard">Administration</Link>
