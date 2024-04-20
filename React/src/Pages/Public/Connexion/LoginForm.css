@@ -11,7 +11,8 @@
 }
 
 .asterixConnexion {
-    width: 70%;
+    margin-top: 25px;
+    width: 65%;
 }
 
 /* Style du formulaire */
@@ -46,4 +47,5 @@
     border: none;
     border-radius: 50px;
     cursor: pointer;
+    width: 100%;
 }

@@ -1,20 +1,20 @@
 .CreeAvertissement {
-    margin-left: 50%;
-    margin-top: 2%;
-    align-items: center;
-    display: flex;
-    flex-direction: row;
+  margin-left: 50%;
+  margin-top: 2%;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
 }
 
-.CreeAvertissement button  {
+.CreeAvertissement button {
   font-size: 1em;
   background-color: #23AE4A;
   padding: 10px 20px;
   border-radius: 50px;
-    margin-bottom: 10px;
+  margin-bottom: 10px;
   color: white;
   margin-right: 10px;
- 
+
 }
 
 .CreeAvertissement button:hover {
@@ -38,17 +38,22 @@
 }
 
 .AffichageAvertissement {
-   
-  padding: 20px; /* Padding of 20px around the content of each element */
-  border: 2px solid rgb(179, 175, 175); /* Grey border of 1px */
-  border-radius: 10px; /* Rounded corners of 10px */
-  background-color: white; /* White background color */
+
+  padding: 20px;
+  /* Padding of 20px around the content of each element */
+  border: 2px solid rgb(179, 175, 175);
+  /* Grey border of 1px */
+  border-radius: 10px;
+  /* Rounded corners of 10px */
+  background-color: white;
+  /* White background color */
   align-items: center;
   justify-content: center;
-  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  box-sizing: border-box;
+  /* Include padding and border in element's total width and height */
   transform: scale(1);
   transition: 0.5s;
-  
+
 }
 
 .AffichageAvertissement:hover {
@@ -87,37 +92,35 @@
 }
 
 
-  
-.AdvertAdminContainer > div:not(.CreeAvertissement) {
-   
-    margin-top: 10%;
-  
-    
+
+.AdvertAdminContainer>div:not(.CreeAvertissement) {
+
+  margin-top: 10%;
+
+
 }
 
 .AdvertAdminContainer h2 {
-    font-size: 1em;
-    font-weight: bold;
-    
+  font-size: 1em;
+  font-weight: bold;
+
 }
 
 .AdvertAdminContainer p {
-    font-size: 0.90em;
-    font-weight: normal;
-   
+  font-size: 0.90em;
+  font-weight: normal;
+
 }
 
 .AdminAdvertMargin {
-    margin-left: 10%;
-    margin-right: 10%;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 .AdvertAdminContainer h1 {
-    font-size: 1.5em;
-    font-family: 'Roboto', sans-serif;
-    margin-bottom: 10px;
-    margin-top: 50px;
-   
+  font-size: 1.5em;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 10px;
+  margin-top: 50px;
+
 }
-
-
