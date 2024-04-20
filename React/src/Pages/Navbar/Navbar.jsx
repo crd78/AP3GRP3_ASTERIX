@@ -52,11 +52,19 @@ const Navbar = () => {
             {isMobile && (
                 <img className='menu_hamburger' src={menu_hamburger} alt='menu_hamburger' onClick={handleMenuClick} />
             )}
-            <div className="Connexion">
+            <div className="nav-links">
                 {isAdmin && isAdmin() ? (
-                    <Link to="/admin/Dashboard">Administration</Link>
+                    <ul>
+                        <li>
+                            <Link to="/admin/Dashboard">Administration</Link>
+                        </li>
+                    </ul>
                 ) : (
-                    <Link to="/login">Connexion</Link>
+                    <ul>
+                        <li>
+                            <Link to="/login">Connexion</Link>
+                        </li>
+                    </ul>
                 )}
             </div>
         </nav>

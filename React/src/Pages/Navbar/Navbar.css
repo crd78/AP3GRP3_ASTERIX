@@ -54,14 +54,14 @@ header {
 }
 
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
     .navbar {
         padding: 0;
     }
 
     .navbar .logo {
         position: absolute;
-        top: 50px;
+        top: 30px;
     }
 
 
