@@ -39,7 +39,7 @@ function App() {
             <Route path="/attractions/:id_attraction" element={<AttractionDetails />} />
             <Route path="/admin/Dashboard" element={<Dashboard />} />
             <Route path="/admin/utilisateurs" element={<GestionUtilisateurs />} />
-            <Route path="/attractions/:themeID" element={<AttractionAll />} />
+            <Route path="/attractions/theme/:id_themes" element={<AttractionAll />} />
           </Routes>
         </Router>
       </UserProvider>

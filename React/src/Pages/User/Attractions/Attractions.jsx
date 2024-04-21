@@ -17,15 +17,18 @@ const Attractions = () => {
                     // Grouper les attractions par thème
                     data.forEach(attraction => {
                         if (!themes[attraction.libelle]) {
-                            themes[attraction.libelle] = [attraction];
+                            themes[attraction.libelle] = {
+                                id_themes: attraction.id_themes,
+                                attractions: [attraction]
+                            };
                         } else {
-                            themes[attraction.libelle].push(attraction);
+                            themes[attraction.libelle].attractions.push(attraction);
                         }
                     });
 
                     // Limiter chaque thème à 4 attractions
                     for (const theme in themes) {
-                        themes[theme] = themes[theme].slice(0, 5);
+                        themes[theme].attractions = themes[theme].attractions.slice(0, 5);
                     }
 
                     setThemedAttractions(Object.entries(themes));
@@ -47,12 +50,12 @@ const Attractions = () => {
                 découvrez nos différentes attractions, plus folles les unes que les autres… Et il y en a pour tous les goûts !</p>
             <input className="filtre" type="text" value={filter} onChange={e => setFilter(e.target.value)} placeholder="Filtrer les attractions" />
 
-            {themedAttractions.map(([theme, attractions]) => (
+            {themedAttractions.map(([theme, { id_themes, attractions }]) => (
                 <div key={theme}>
                     <div className="attractions-container">
                         <div className='nomTheme'>
                             <h1 className='themeAttraction'>{theme}</h1>
-                            <Link to={`/attractions/${theme.id}`} className="voir-plus-link">Voir plus →</Link>
+                            <Link to={`/attractions/theme/${id_themes}`} className="voir-plus-link">Voir plus →</Link>
                         </div>
                         <div className='attractions'>
                             {attractions

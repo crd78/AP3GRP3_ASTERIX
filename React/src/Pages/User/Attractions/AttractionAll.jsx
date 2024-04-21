@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const AttractionAll = ({ themeId }) => {
+const AttractionAll = ({ id_themes }) => {
     // State pour stocker les attractions
     const [attractions, setAttractions] = useState([]);
 
@@ -10,7 +10,7 @@ const AttractionAll = ({ themeId }) => {
         const fetchAttractions = async () => {
             try {
                 // Requête pour récupérer les attractions du thème sélectionné
-                const response = await fetch(`http://localhost:3000/user/attractions/${themeId}`, {
+                const response = await fetch(`http://localhost:3000/user/attractions/theme/${id_themes}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -31,11 +31,11 @@ const AttractionAll = ({ themeId }) => {
 
         // Appel de la fonction fetchAttractions au chargement du composant
         fetchAttractions();
-    }, [themeId]); // Le useEffect s'exécutera à chaque changement du thème sélectionné
+    }, [id_themes]); // Le useEffect s'exécutera à chaque changement du thème sélectionné
 
     return (
         <div>
-            <h1>{themeId}</h1>
+            <h1>{id_themes}</h1>
             {/* Affichage des attractions */}
             {attractions.map((attraction, index) => (
                 <Link to={`/attractions/${attraction.id_attraction}`} key={index} className="attraction-link link-unstyled">

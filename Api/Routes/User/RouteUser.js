@@ -81,11 +81,10 @@ router.get('/attractions/:id', (req, res) => {
 
 
 
-// Route récupérant les attractions d'un thème spécifique
-router.get('/attractions/:themeID', (req, res) => {
-  const themeID = req.params.themeID;
-  const query = 'SELECT * FROM attractions INNER JOIN themes ON attractions.id_themes = themes.id WHERE themes.id = ?';
-  db.query(query, [themeID], (err, results) => {
+// Route récupérant toutes les attractions liées à un thème spécifique
+router.get('/attractions/theme/:themeID', (req, res) => {
+  const query = 'SELECT * FROM attractions WHERE id_themes = ?';
+  db.query(query, [req.params.themeID], (err, results) => {
     if (err) {
       console.error(err);
       res.status(500).send('Erreur lors de la récupération des attractions');
@@ -95,7 +94,6 @@ router.get('/attractions/:themeID', (req, res) => {
     res.json(results);
   });
 });
-
 
 
 
