@@ -1,0 +1,120 @@
+/* Style du conteneur des éléments */
+.container-ajoutUser {
+    display: flex;
+}
+
+.formulaire-container {
+    border: 2px solid black;
+    border-radius: 50px;
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-bottom: 10px;
+}
+
+/* Style de l'image */
+.image-container {
+    margin-left: 105px;
+    margin-right: 205px;
+    width: 30%;
+}
+
+.asterixInscription {
+    width: 80%;
+}
+
+/* Style des titres */
+h1,
+h2 {
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 25px;
+}
+
+.AddUser {
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+.hr {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+
+/* Style des formulaires */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+/* Style des champs de saisie */
+.inPut {
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 4px;
+    width: 150%;
+    text-align: center;
+}
+
+.liste_utilisateurs {
+    display: flex;
+    justify-content: space-around;
+}
+
+.liste_utilisateurs ul {
+    list-style: none;
+}
+
+.liste_utilisateurs li {
+    margin-bottom: 15px;
+}
+
+.btnAjouter {
+    padding: 8px 16px;
+    background-color: #23AE4A;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 160%;
+    text-align: center;
+}
+
+.btn {
+    padding: 8px 16px;
+    background-color: #23AE4A;
+    color: white;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+.btn:hover {
+    background-color: #1E7E34;
+}
+
+
+/* Style du tableau */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Style des cellules */
+td,
+th {
+    border: 1px solid #ddd;
+    /* Ajoute une bordure grise */
+    padding: 8px;
+    /* Ajoute un espacement intérieur aux cellules */
+    text-align: left;
+    /* Aligne le texte à gauche dans les cellules */
+}
+
+/* Style des en-têtes de colonnes */
+th {
+    background-color: #f2f2f2;
+    /* Ajoute une couleur de fond gris clair aux en-têtes */
+}

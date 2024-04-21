@@ -1,0 +1,98 @@
+/* Attractions.css */
+
+/* Conteneur des attractions */
+.attractions-container {
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
+/* Carte d'une attraction */
+.card {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #23AE4A;
+}
+
+/* Image de l'attraction */
+.attraction-image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Détails de l'attraction */
+.attraction-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Texte dans la carte */
+.card-text {
+    margin-bottom: 5px;
+}
+
+/* Titre de l'attraction */
+.card-title {
+    margin: 0;
+}
+
+/* Lien sans style */
+.link-unstyled {
+    text-decoration: none;
+    /* Retirer le soulignement des liens */
+    color: inherit;
+    /* Utiliser la couleur par défaut du texte */
+}
+
+.link-unstyled:hover {
+    text-decoration: none;
+    /* Retirer le soulignement lors du survol */
+}
+
+.link-unstyled:visited {
+    color: inherit;
+    /* Utiliser la couleur par défaut du texte pour les liens visités */
+}
+
+.description {
+    margin-top: 30px;
+}
+
+.filtre {
+    border-radius: 50px;
+    text-align: center;
+}
+
+.themeAttraction {
+    margin-top: 50px;
+}
+
+.nomTheme {
+    display: flex;
+}
+
+.attractions {
+    display: flex;
+    margin-top: 30px;
+}
+
+.voir-plus-link {
+    color: black;
+    margin-left: 25px;
+    margin-top: 62px;
+}
+
+.voir-plus-link:hover {
+    text-decoration: underline;
+}

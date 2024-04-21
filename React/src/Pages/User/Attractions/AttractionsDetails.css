@@ -1,0 +1,17 @@
+.infosContainer {
+    display: flex;
+}
+
+.infosPrincipales {
+    margin-right: 20px;
+}
+
+.infosSecondaires {
+    display: flex;
+    align-items: center;
+}
+
+span {
+    font-size: 22px;
+    font-weight: bold;
+}
