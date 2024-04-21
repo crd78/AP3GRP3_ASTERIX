@@ -55,7 +55,7 @@ const Avertissement = () => {
                 }
             });
             fetchAvertissements();
-            
+
         } catch (error) {
             console.error('Error deleting avertissement:', error);
         }
@@ -63,13 +63,13 @@ const Avertissement = () => {
 
     const createAvertissement = async (event) => {
         event.preventDefault();
-    
+
         if (!newMessage) {
             alert('Veuillez entrer un message');
             return;
         }
 
-        if (!(newIdNiveaux > 0 && newIdNiveaux < 5 )) {
+        if (!(newIdNiveaux > 0 && newIdNiveaux < 5)) {
             alert('Veuillez entrer un niveau entre 1 et 4');
             return;
         }
@@ -77,7 +77,7 @@ const Avertissement = () => {
             alert('Veuillez entrer un niveau');
             return;
         }
-        
+
 
         try {
             const token = localStorage.getItem('token'); // Récupérez le token du localStorage
