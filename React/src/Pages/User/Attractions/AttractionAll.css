@@ -1,0 +1,6 @@
+.attractionsdetails {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 120px;
+    margin-top: 30px;
+}

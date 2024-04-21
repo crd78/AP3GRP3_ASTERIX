@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import './AttractionAll.css';
 
-const AttractionAll = ({ id_themes }) => {
+
+const AttractionAll = () => {
+    // Utilisation de useParams pour récupérer l'ID du thème
+    const { id_themes } = useParams();
+
     // State pour stocker les attractions
     const [attractions, setAttractions] = useState([]);
+    const [filter, setFilter] = useState('');
 
     // Effet pour récupérer les attractions du thème sélectionné
     useEffect(() => {
@@ -31,21 +37,25 @@ const AttractionAll = ({ id_themes }) => {
 
         // Appel de la fonction fetchAttractions au chargement du composant
         fetchAttractions();
-    }, [id_themes]); // Le useEffect s'exécutera à chaque changement du thème sélectionné
+    }, [id_themes]); // Le useEffect s'exécutera à chaque changement de l'ID du thème
 
     return (
         <div>
-            <h1>{id_themes}</h1>
+            <h1>Attractions du thème {id_themes}</h1>
             {/* Affichage des attractions */}
-            {attractions.map((attraction, index) => (
-                <Link to={`/attractions/${attraction.id_attraction}`} key={index} className="attraction-link link-unstyled">
-                    <div className="card">
-                        <img src={attraction.image} alt={`Image de ${attraction.nom}`} className="attraction-image" />
-                        <p className="card-text">{attraction.numero}</p>
-                        <h2 className="card-title">{attraction.nom}</h2>
-                    </div>
-                </Link>
-            ))}
+            <div className='attractionsdetails'>
+                {attractions
+                    .filter(attraction => attraction.nom.toLowerCase().includes(filter.toLowerCase()))
+                    .map((attraction, index) => (
+                        <Link to={`/attractions/${attraction.id_attraction}`} key={index} className="attraction-link link-unstyled">
+                            <div className="card">
+                                <img src={attraction.image} alt={`Image de ${attraction.nom}`} className="attraction-image" />
+                                <p className="card-text">{attraction.numero}</p>
+                                <h2 className="card-title">{attraction.nom}</h2>
+                            </div>
+                        </Link>
+                    ))}
+            </div>
         </div>
     );
 };

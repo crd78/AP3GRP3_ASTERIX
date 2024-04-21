@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import './LoginForm.css';
 import AsterixLogoConnexion from '../../../assets/images/AsterixLogoConnexion.png';
 
-
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

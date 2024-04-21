@@ -1,6 +1,4 @@
-import Navbar from './Pages/Navbar/Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Attractions from './Pages/User/Attractions/Attractions';
 import Missions from './Pages/User/Missions/Mission';
 import Avertissement from './Pages/User/Avertissements/Avertissement';
 import Accueil from './Pages/Public/Accueil/Accueil';
@@ -13,6 +11,8 @@ import AttractionDetails from './Pages/User/Attractions/AttractionsDetails';
 import Dashboard from './Pages/Admin/Dashboard/Dashboard';
 import GestionUtilisateurs from './Pages/Admin/GestionUtilisateurs/GestionUtilisateurs';
 import AttractionAll from './Pages/User/Attractions/AttractionAll';
+import Navbar from './Pages/Navbar/Navbar';
+import Attractions from './Pages/User/Attractions/Attractions';
 
 
 

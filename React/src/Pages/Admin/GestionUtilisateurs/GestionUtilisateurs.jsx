@@ -132,7 +132,7 @@ const GestionUtilisateurs = () => {
                 </div>
 
                 <div className='formulaire-container'>
-                    <h2>Ajouter un utilisateur</h2>
+                    <h2 className='AddUser'>Ajouter un utilisateur</h2>
                     <form onSubmit={ajouterUtilisateur}>
                         <input className='inPut' type="text" name="nom" value={nouvelUtilisateur.nom} onChange={handleInputChangeNouvelUtilisateur} placeholder="Nom" />
                         <input className='inPut' type="text" name="prenom" value={nouvelUtilisateur.prenom} onChange={handleInputChangeNouvelUtilisateur} placeholder="Prénom" />
@@ -151,7 +151,7 @@ const GestionUtilisateurs = () => {
             <hr className='hr'></hr>
 
 
-            <h2>Liste des utilisateurs</h2>
+            <h1>Liste des utilisateurs</h1>
             <div className='liste_utilisateurs'>
                 <table>
                     <thead>

@@ -8,10 +8,18 @@
     margin-bottom: 55px;
 }
 
-.image-container .imageDashboard {
-    width: 900px;
+.imageContainer {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.imageContainer .imageDashboard {
+    max-width: 80%;
+    height: auto;
     border-radius: 50px;
 }
+
 
 .dashboard-links {
     text-align: left;
