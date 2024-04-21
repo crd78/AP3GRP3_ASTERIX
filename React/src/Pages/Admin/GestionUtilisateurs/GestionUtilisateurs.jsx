@@ -36,8 +36,8 @@ const GestionUtilisateurs = () => {
         fetchUtilisateurs();
     }, []);
 
-    if (user && user.role !== 'admin') {
-        return <ErrorMessage message="Accès refusé. Cette page n'est accessible qu'aux administrateurs." />;
+    if (!user || user.role !== 2) {
+        return <ErrorMessage message="Accès refusé. Cette page n'est accessible qu'à l'administrateur." />;
     }
 
     const fetchUtilisateurs = async () => {
