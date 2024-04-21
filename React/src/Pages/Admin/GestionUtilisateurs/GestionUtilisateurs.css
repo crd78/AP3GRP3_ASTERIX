@@ -43,7 +43,7 @@ form {
 }
 
 /* Style des champs de saisie */
-input {
+.inPut {
     padding: 8px;
     border: 1px solid black;
     border-radius: 4px;

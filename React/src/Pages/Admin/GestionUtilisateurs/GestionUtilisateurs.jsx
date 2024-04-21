@@ -134,14 +134,14 @@ const GestionUtilisateurs = () => {
                 <div className='formulaire-container'>
                     <h2>Ajouter un utilisateur</h2>
                     <form onSubmit={ajouterUtilisateur}>
-                        <input type="text" name="nom" value={nouvelUtilisateur.nom} onChange={handleInputChangeNouvelUtilisateur} placeholder="Nom" />
-                        <input type="text" name="prenom" value={nouvelUtilisateur.prenom} onChange={handleInputChangeNouvelUtilisateur} placeholder="Prénom" />
-                        <input type="email" name="email" value={nouvelUtilisateur.email} onChange={handleInputChangeNouvelUtilisateur} placeholder="Email" />
-                        <input type="text" name="password" value={nouvelUtilisateur.password} onChange={handleInputChangeNouvelUtilisateur} placeholder="Password" />
-                        <input type="number" name="code_postal" value={nouvelUtilisateur.code_postal} onChange={handleInputChangeNouvelUtilisateur} placeholder="Code Postal" />
-                        <input type="text" name="adresse" value={nouvelUtilisateur.adresse} onChange={handleInputChangeNouvelUtilisateur} placeholder="Adresse" />
-                        <input type="number" name="id_roles" value={nouvelUtilisateur.id_roles} onChange={handleInputChangeNouvelUtilisateur} placeholder="Rôle" />
-                        <input type="number" name="id_metiers" value={nouvelUtilisateur.id_metiers} onChange={handleInputChangeNouvelUtilisateur} placeholder="Métier" />
+                        <input className='inPut' type="text" name="nom" value={nouvelUtilisateur.nom} onChange={handleInputChangeNouvelUtilisateur} placeholder="Nom" />
+                        <input className='inPut' type="text" name="prenom" value={nouvelUtilisateur.prenom} onChange={handleInputChangeNouvelUtilisateur} placeholder="Prénom" />
+                        <input className='inPut' type="email" name="email" value={nouvelUtilisateur.email} onChange={handleInputChangeNouvelUtilisateur} placeholder="Email" />
+                        <input className='inPut' type="text" name="password" value={nouvelUtilisateur.password} onChange={handleInputChangeNouvelUtilisateur} placeholder="Password" />
+                        <input className='inPut' type="number" name="code_postal" value={nouvelUtilisateur.code_postal} onChange={handleInputChangeNouvelUtilisateur} placeholder="Code Postal" />
+                        <input className='inPut' type="text" name="adresse" value={nouvelUtilisateur.adresse} onChange={handleInputChangeNouvelUtilisateur} placeholder="Adresse" />
+                        <input className='inPut' type="number" name="id_roles" value={nouvelUtilisateur.id_roles} onChange={handleInputChangeNouvelUtilisateur} placeholder="Rôle" />
+                        <input className='inPut' type="number" name="id_metiers" value={nouvelUtilisateur.id_metiers} onChange={handleInputChangeNouvelUtilisateur} placeholder="Métier" />
                         <button className="btnAjouter" type="submit">Ajouter</button>
                     </form>
                 </div>
@@ -193,27 +193,27 @@ const GestionUtilisateurs = () => {
                     <form onSubmit={handleSubmit}>
                         <label>
                             Nom:
-                            <input type="text" name="nom" value={editedUserData.nom} onChange={handleInputChange} />
+                            <input className='inPut' type="text" name="nom" value={editedUserData.nom} onChange={handleInputChange} />
                         </label>
                         <label>
                             Prénom:
-                            <input type="text" name="prenom" value={editedUserData.prenom} onChange={handleInputChange} />
+                            <input className='inPut' type="text" name="prenom" value={editedUserData.prenom} onChange={handleInputChange} />
                         </label>
                         <label>
                             Email:
-                            <input type="email" name="email" value={editedUserData.email} onChange={handleInputChange} />
+                            <input className='inPut' type="email" name="email" value={editedUserData.email} onChange={handleInputChange} />
                         </label>
                         <label>
                             Code Postal:
-                            <input type="text" name="code_postal" value={editedUserData.code_postal} onChange={handleInputChange} />
+                            <input className='inPut' type="text" name="code_postal" value={editedUserData.code_postal} onChange={handleInputChange} />
                         </label>
                         <label>
                             Ville:
-                            <input type="text" name="ville" value={editedUserData.ville} onChange={handleInputChange} />
+                            <input className='inPut' type="text" name="ville" value={editedUserData.ville} onChange={handleInputChange} />
                         </label>
                         <label>
                             Adresse:
-                            <input type="text" name="adresse" value={editedUserData.adresse} onChange={handleInputChange} />
+                            <input className='inPut' type="text" name="adresse" value={editedUserData.adresse} onChange={handleInputChange} />
                         </label>
                         <button type="submit" disabled={loading}>Enregistrer</button>
                     </form>

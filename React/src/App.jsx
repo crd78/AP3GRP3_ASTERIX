@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AttractionDetails from './Pages/User/Attractions/AttractionsDetails';
 import Dashboard from './Pages/Admin/Dashboard/Dashboard';
 import GestionUtilisateurs from './Pages/Admin/GestionUtilisateurs/GestionUtilisateurs';
+import AttractionAll from './Pages/User/Attractions/AttractionAll';
 
 
 
@@ -38,6 +39,7 @@ function App() {
             <Route path="/attractions/:id_attraction" element={<AttractionDetails />} />
             <Route path="/admin/Dashboard" element={<Dashboard />} />
             <Route path="/admin/utilisateurs" element={<GestionUtilisateurs />} />
+            <Route path="/attractions/:themeID" element={<AttractionAll />} />
           </Routes>
         </Router>
       </UserProvider>
