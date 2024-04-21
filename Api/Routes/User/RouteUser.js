@@ -60,7 +60,7 @@ router.get('/attractions', (req, res) => {
   });
 });
 
-// Router récupérant les détails d'une attraction
+// Route récupérant les détails d'une attraction
 router.get('/attractions/:id', (req, res) => {
   const query = 'SELECT * FROM attractions WHERE id_attraction = ?';
   db.query(query, [req.params.id], (err, results) => {
@@ -78,6 +78,25 @@ router.get('/attractions/:id', (req, res) => {
     res.json(results[0]);
   });
 });
+
+
+
+// Route récupérant toutes les attractions liées à un thème spécifique
+router.get('/attractions/theme/:themeID', (req, res) => {
+  const query = 'SELECT * FROM attractions WHERE id_themes = ?';
+  db.query(query, [req.params.themeID], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de la récupération des attractions');
+      return;
+    }
+
+    res.json(results);
+  });
+});
+
+
+
 
 function getIdSession(token) {
   try {

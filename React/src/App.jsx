@@ -1,6 +1,4 @@
-import Navbar from './Pages/Navbar/Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Attractions from './Pages/User/Attractions/Attractions';
 import Missions from './Pages/User/Missions/Mission';
 import Avertissement from './Pages/User/Avertissements/Avertissement';
 import Accueil from './Pages/Public/Accueil/Accueil';
@@ -12,6 +10,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import AttractionDetails from './Pages/User/Attractions/AttractionsDetails';
 import Dashboard from './Pages/Admin/Dashboard/Dashboard';
 import GestionUtilisateurs from './Pages/Admin/GestionUtilisateurs/GestionUtilisateurs';
+import AttractionAll from './Pages/User/Attractions/AttractionAll';
+import Navbar from './Pages/Navbar/Navbar';
+import Attractions from './Pages/User/Attractions/Attractions';
 
 
 
@@ -38,6 +39,7 @@ function App() {
             <Route path="/attractions/:id_attraction" element={<AttractionDetails />} />
             <Route path="/admin/Dashboard" element={<Dashboard />} />
             <Route path="/admin/utilisateurs" element={<GestionUtilisateurs />} />
+            <Route path="/attractions/theme/:id_themes" element={<AttractionAll />} />
           </Routes>
         </Router>
       </UserProvider>

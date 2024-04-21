@@ -44,11 +44,24 @@ const AttractionDetails = () => {
     return (
         <div>
             <h1>Détails de l'attraction : {attraction.nom}</h1>
-            <img src={attraction.image} alt={`Image de ${attraction.nom}`} className="attraction-image-details" />
-            <p>Numéro de l'attraction : {attraction.numero}</p>
-            <p>Description : {attraction.description}</p>
-            <p>Taille minimum : {attraction.taille_minimum} cm</p>
+            <div className='infosContainer'>
+                <div className='infosPrincipales'>
+                    <div className='card'>
+                        <img src={attraction.image} alt={`Image de ${attraction.nom}`} className="attraction-image" />
+                        <p><span>Numéro :</span> {attraction.numero}</p>
+                        <p><span>Taille minimum :</span> {attraction.taille_minimum} cm</p>
+                    </div>
+                </div>
+                <div className='infosSecondaires'>
+                    <p><span>Description :</span> {attraction.description}</p>
+                </div>
+            </div>
         </div>
+
+
+
+
+
     );
 };
 

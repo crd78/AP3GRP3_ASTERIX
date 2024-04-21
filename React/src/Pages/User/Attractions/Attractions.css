@@ -2,16 +2,15 @@
 
 /* Conteneur des attractions */
 .attractions-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     margin-right: 100px;
     margin-left: 100px;
 }
 
 /* Carte d'une attraction */
 .card {
-    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -64,4 +63,36 @@
 .link-unstyled:visited {
     color: inherit;
     /* Utiliser la couleur par défaut du texte pour les liens visités */
+}
+
+.description {
+    margin-top: 30px;
+}
+
+.filtre {
+    border-radius: 50px;
+    text-align: center;
+}
+
+.themeAttraction {
+    margin-top: 50px;
+}
+
+.nomTheme {
+    display: flex;
+}
+
+.attractions {
+    display: flex;
+    margin-top: 30px;
+}
+
+.voir-plus-link {
+    color: black;
+    margin-left: 25px;
+    margin-top: 62px;
+}
+
+.voir-plus-link:hover {
+    text-decoration: underline;
 }
