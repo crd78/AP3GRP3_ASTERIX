@@ -45,7 +45,7 @@ const Navbar = () => {
                         <Link to="/missions">Missions</Link>
                     </li>
                     <li>
-                        <Link to="/avertissements">Avertissements</Link>
+                        <Link to="/avertissement">Avertissements</Link>
                     </li>
                 </ul>
             </div>
