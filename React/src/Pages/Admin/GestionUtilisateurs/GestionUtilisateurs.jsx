@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import './GestionUtilisateurs.css';
 import AsterixLogoInscription from '../../../assets/images/AsterixLogoInscription.png';
 import { FiEdit, FiTrash } from 'react-icons/fi';
-
+import UserContext from '../../../assets/Context/UserContexte';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 const GestionUtilisateurs = () => {
     const [utilisateurs, setUtilisateurs] = useState([]);
@@ -29,10 +30,15 @@ const GestionUtilisateurs = () => {
         id_metiers: ''
     });
     const [loading, setLoading] = useState(false);
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
         fetchUtilisateurs();
     }, []);
+
+    if (user && user.role !== 'admin') {
+        return <ErrorMessage message="Accès refusé. Cette page n'est accessible qu'aux administrateurs." />;
+    }
 
     const fetchUtilisateurs = async () => {
         try {
@@ -74,7 +80,7 @@ const GestionUtilisateurs = () => {
             fetchUtilisateurs();
         } catch (error) {
             console.error('Error updating utilisateur:', error);
-            toast.error('Erreur lors de la mise à jour de l\'utilisateur');
+            toast.error("Erreur lors de la mise à jour de l'utilisateur");
         } finally {
             setLoading(false);
             setSelectedUser(null);
@@ -224,4 +230,3 @@ const GestionUtilisateurs = () => {
 };
 
 export default GestionUtilisateurs;
-
