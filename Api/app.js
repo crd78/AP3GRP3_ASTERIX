@@ -40,6 +40,9 @@ app.get('/jwt', (req, res) => {
 });
 
 
+
+
+
 // Route de login
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
@@ -70,7 +73,4 @@ app.post('/login', (req, res) => {
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 
-// Route de déconnexion
-app.post('/deconnexion', (requete, reponse) => {
-    reponse.status(200).json({ status: true, message: "Déconnexion réussie" });
-})
+

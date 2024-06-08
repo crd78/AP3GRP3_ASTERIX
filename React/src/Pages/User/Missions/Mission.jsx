@@ -1,60 +1,125 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import UserContext from '../../../assets/Context/UserContexte';
+import { toast } from 'react-toastify';
 
+const Missions = () => {
 
-const Mission = () => {
+    const { user } = useContext(UserContext);
     const [missions, setMissions] = useState([]);
-    const [error, setError] = useState(null);
+    const [affectations, setAffectations] = useState([]);
+    const [completedMissions, setCompletedMissions] = useState([]);
+    const [comment, setComment] = useState(''); // Add this line
+   
+
+    const validateMission = async (missionId) => {
+        try {
+            const response = await axios.put(`http://localhost:3000/user/finishmissions/${missionId}`, {
+                est_valide: 1, // Mission terminée
+            });
+
+            if (response.status === 200) {
+                const updatedMissions = missions.map(mission => mission.id === missionId ? { ...mission, completed: true } : mission);
+                setMissions(updatedMissions);
+
+                const newCompletedMissions = updatedMissions.filter(mission => mission.completed);
+                setCompletedMissions(newCompletedMissions);
+            }
+        } catch (error) {
+            console.error('Error validating mission:', error);
+        }
+    };
+
+    const leaveComment = async (missionId, comment) => {
+        try {
+            const response = await axios.put(`http://localhost:3000/user/commentmissions/${missionId}`, {
+                commentaires: comment,
+            });
+
+            if (response.status === 200) {
+                const updatedMissions = missions.map(mission => mission.id === missionId ? { ...mission, comment } : mission);
+                setMissions(updatedMissions);
+            }
+        } catch (error) {
+            console.error('Error leaving comment:', error);
+        }
+    };
+
+    const startMission = async (missionId) => {
+    try {
+        const currentDate = new Date();
+        const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
+
+        const response = await axios.put(`http://localhost:3000/user/startmissions/${missionId}`, {
+            
+            date_prise_de_poste: formattedDate, // Add this line
+        });
+
+        if (response.status === 200) {
+            const updatedMissions = missions.map(mission => mission.id === missionId ? { ...mission, started: true } : mission);
+            setMissions(updatedMissions);
+        }
+    } catch (error) {
+        console.error('Error starting mission:', error);
+    }
+};
 
     useEffect(() => {
-        const fetchMissions = async () => {
+    if (user) {
+        const fetchAffectationsAndMissions = async () => {
             try {
-                const token = localStorage.getItem('token'); // Récupérer le token depuis le localStorage ou un autre endroit
-                const response = await fetch('http://localhost:3000/User/missions', {
-                    headers: {
-                        'authorization': `Bearer ${token}`
-                    },
-                    method: 'GET',
+                const affectationsResponse = await axios.get(`http://localhost:3000/user/affectations/${user.id}`);
+                const affectationsData = affectationsResponse.data;
+                setAffectations(affectationsData);
+
+                // Filtrer les affectations pour ne garder que celles qui ne sont pas validées
+                const nonValidatedAffectations = affectationsData.filter(affectation => affectation.est_valide !== 1);
+
+                // Récupérer les missions correspondantes
+                const missionsPromises = nonValidatedAffectations.map(affectation => 
+                    axios.get(`http://localhost:3000/user/missions/${affectation.id_missions}`)
+                );
+                const missionsResponses = await Promise.all(missionsPromises);
+                const missionsData = missionsResponses.map(response => response.data);
+                setMissions(missionsData);
+                
+                // Ajouter les affectations non validées à chaque mission
+                const missionsWithAffectations = missionsData.map(mission => {
+                    const affectationsForMission = nonValidatedAffectations.filter(affectation => affectation.id_missions === mission.id);
+                    return {...mission, affectations: affectationsForMission};
                 });
-
-                if (!response.ok) {
-                    throw new Error('Erreur lors de la récupération des missions');
-                }
-
-                const data = await response.json();
-                setMissions(data);
-                console.log(data);
+                setMissions(missionsWithAffectations);
             } catch (error) {
-                console.error('Erreur lors de la récupération des missions:', error);
-                setError(error.message);
+                console.error('Error fetching affectations or missions:', error);
             }
         };
 
-        fetchMissions();
-    }, []);
-
-    if (error) {
-        return <div>Erreur : {error}</div>;
+        fetchAffectationsAndMissions();
     }
-
-    return (
-        <div>
-            <h1>Missions</h1>
-            <ul>
-                {missions.map((mission) => (
+}, [user]);
+    
+return (
+    <div>
+        <h2>Mes missions </h2>
+        <ul>
+        {Array.isArray(missions) && missions.filter(mission => {
+            return mission.affectations && !mission.affectations.find(affectation => affectation.est_valide === 1);
+        }).map((mission) => {
+                return (
                     <li key={mission.id}>
                         <h2>{mission.libelle}</h2>
                         <p>{mission.description}</p>
-                        {/* Cekcbox pour  prendre cette mission  */}
-                        <Link to={`/mission/${mission.id}`}>Prendre cette mission</Link>
-                        {/* boutton pour dire que la mission est terminé  */}
-                        <button>Mission Finis</button>
-
+                        <button onClick={() => startMission(mission.id)}>Commencer la mission</button>
+                        <button onClick={() => validateMission(mission.id)}>Terminer la mission</button>
+                        <input type="text" value={comment} onChange={e => setComment(e.target.value)} placeholder="Laissez un commentaire" />
+                        <button onClick={() => leaveComment(mission.id, comment)}>Soumettre le commentaire</button>
                     </li>
-                ))}
-            </ul>
-        </div>
-    );
-};
-
-export default Mission;
+                );
+            })}
+        </ul>
+    </div>
+);
+}
+export default Missions;

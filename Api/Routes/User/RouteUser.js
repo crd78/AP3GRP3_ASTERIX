@@ -95,82 +95,123 @@ router.get('/attractions/theme/:themeID', (req, res) => {
   });
 });
 
-
-
-
-function getIdSession(token) {
-  try {
-    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    const userId = decodedToken.id;
-    return userId;
-  } catch (error) {
-    console.error('Erreur lors de la récupération de l\'ID de l\'utilisateur:', error);
-    return null;
-  }
-}
-
-
-
-
-  router.get('/missions', (req, res) => {
-    const token = req.headers['authorization'].split(' ')[1];
-    console.log('Bearer:', req.headers['authorization']);
-    console.log('Token:', token);
-    const userId = getIdSession(token);
-console.log('ID de l\'utilisateur:', userId)
-  const query = `
-    SELECT M.libelle, M.description, M.id
-    FROM missions M
-    WHERE M.id IN (SELECT A.id_missions FROM affectations A WHERE A.id_utilisateurs = ?
-    AND DATE(A.date_jour) = CURDATE() )
-   
-    `;
+router.get('/affectations/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const query = 'SELECT * FROM affectations WHERE id_utilisateurs = ?';
 
   db.query(query, [userId], (err, results) => {
     if (err) {
-      console.error("Erreur SQL:", err); // Afficher l'erreur SQL
-      res.status(500).json({ message: 'Erreur lors de la récupération des missions' });
+      console.error(err);
+      res.status(500).send('Erreur lors de la récupération des missions');
       return;
     }
 
     if (results.length === 0) {
-      res.status(404).json({ message: 'Mission non trouvée' });
-      return; 
+      res.status(404).send('Aucune mission trouvée pour cet utilisateur');
+      return;
     }
-    console.log('results:', results);
+
     res.json(results);
   });
 });
 
+// Route récupérant les détails d'une mission
+router.get('/missions/:Id', (req, res) => {
+  const Id = req.params.Id;
+  const query = 'SELECT * FROM missions WHERE id = ?';
+
+  db.query(query, [Id], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de la récupération des détails de la mission');
+      return;
+    }
+
+    if (results.length === 0) {
+      res.status(404).send('Mission non trouvée');
+      return;
+    }
+
+    res.json(results[0]);
+  });
+});
 
 
+router.post('/takemissions', (req, res) => {
+  const query = 'INSERT INTO affectations (id_utilisateurs, id_missions, date_jour, est_valide, date_prise_de_poste, commentaires) VALUES (?, ?, ?, ?, ?, ?)';
+  db.query(query, [req.body.id_utilisateurs, req.body.id_missions, req.body.date_jour, req.body.est_valide, req.body.date_prise_de_poste, req.body.commentaires], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Error while assigning the mission', error: err });
+      return;
+    }
 
+    res.status(200).json({ message: 'Mission assigned successfully' });
+  });
+});
 
+router.put('/finishmissions/:missionId', (req, res) => { 
+  const missionId = req.params.missionId;
+  const query = 'UPDATE affectations SET est_valide = 1 WHERE id_missions = ?';
 
+  db.query(query, [missionId], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Error while finishing the mission', error: err });
+      return;
+    }
 
+    if (results.affectedRows === 0) {
+      res.status(404).json({ message: 'Mission not found' });
+      return;
+    }
+
+    res.status(200).json({ message: 'Mission finished successfully' });
+  });
+});
+
+router.put('/commentmissions/:missionId', (req, res) => { 
+  const missionId = req.params.missionId;
+  const comment = req.body.commentaires;
+  const query = 'UPDATE affectations SET commentaires = ? WHERE id_missions = ?';
+
+  db.query(query, [comment, missionId], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Error while leaving a comment', error: err });
+      return;
+    }
+
+    if (results.affectedRows === 0) {
+      res.status(404).json({ message: 'Mission not found' });
+      return;
+    }
+
+    res.status(200).json({ message: 'Comment left successfully' });
+  });
+});
+
+// Route updating the start date of a mission
+router.put('/startmissions/:missionId', (req, res) => {
+  const missionId = req.params.missionId;
+  const date_prise_de_poste = req.body.date_prise_de_poste;
+  const query = 'UPDATE affectations SET date_prise_de_poste = ? WHERE id_missions = ?';
+
+  db.query(query, [date_prise_de_poste, missionId], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error while starting a mission');
+      return;
+    }
+
+    if (results.affectedRows === 0) {
+      res.status(404).send('Mission not found');
+      return;
+    }
+
+    res.status(200).send('Mission started successfully');
+  });
+});
 
 
 module.exports = router;
-  // const userId = req.user.id; // Récupérer l'ID de l'utilisateur du token
-  // console.log('ID de l\'utilisateur:', userId);
-  // const query = `
-  //   SELECT M.libelle, M.description
-  //   FROM missions M
-  //   where M.id IN (SELECT A.id_missions FROM affectations A WHERE
-  //  	A.id_utilisateurs = ?)`;
-    
-
-  // db.query(query,[userId], (err, results) => {
-  //   if (err) {
-  //     console.error("Erreur SQL:", err); // Afficher l'erreur SQL
-  //     res.status(500).json({ message: 'Erreur lors de la récupération des missions' });
-  //     return;
-  //   }
-
-  //   if (results.length === 0) {
-  //     res.status(404).json({ message: 'Mission non trouvée' });
-  //     return;
-  //   }
-
-  //   res.json(results);
-  // });
