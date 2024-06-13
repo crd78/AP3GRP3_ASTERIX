@@ -176,7 +176,7 @@ router.delete('/supprimerUtilisateur/:id', (req, res) => {
 });
 
 // Route permettant d'ajouter un utilisateur
-router.post('/ajouterUtilisateur', (req, res) => {
+router.post('/ajouterUtilisateur',(req, res) => {
   const query = 'INSERT INTO utilisateurs (prenom, nom, email, password, code_postal, ville, adresse, id_roles, id_metiers) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
   db.query(query, [req.body.prenom, req.body.nom, req.body.password, req.body.email, req.body.code_postal, req.body.ville, req.body.adresse, req.body.id_roles, req.body.id_metiers], (err, results) => {
     if (err) {
@@ -186,6 +186,76 @@ router.post('/ajouterUtilisateur', (req, res) => {
     }
 
     res.status(200).send('Utilisateur ajouté');
+  });
+});
+
+//route pour ajouter une mission
+
+router.post('/ajouterMission', verifyAdmin, (req, res) => {
+  const query = 'INSERT INTO missions (libelle, description) VALUES (?, ?)';
+  db.query(query, [req.body.libelle, req.body.description], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de l\'ajout de la mission');
+      return;
+    }
+
+    res.status(200).send('Mission ajoutée');
+  });
+});
+
+router.post('/affecterMission', verifyAdmin, (req, res) => {
+    const query = 'INSERT INTO affectations (id_utilisateurs, id_missions, date_jour) VALUES (?, ?, ?)';
+    db.query(query, [req.body.id_utilisateurs, req.body.id_missions, req.body.date_jour], (err, results) => {
+        if (err) {
+            console.error('Erreur lors de l\'affectation de la mission:', err);
+            res.status(500).send('Erreur lors de l\'affectation de la mission');
+        } else {
+            res.status(200).send('Mission affectée');
+        }
+    });
+});
+
+// ROUTE QUI RECUPERE TOUTE LES MISSIONS
+router.get('/missions', verifyAdmin, (req, res) => {
+  const query = 'SELECT missions.* FROM missions ';
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de la récupération des missions');
+      return;
+    }
+
+    res.json(results);
+  });
+});
+
+//route pour afficher affectations
+router.get('/affectations', verifyAdmin, (req, res) => {
+  const query = 'SELECT affectations.* FROM affectations ';
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de la récupération des affectations');
+      return;
+    }
+
+    res.json(results);
+  });
+});
+
+//route pour supprimer une mission
+
+router.delete('/supprimerMission/:id', verifyAdmin, (req, res) => {
+  const query = 'DELETE FROM missions  WHERE id = ?';
+  db.query(query, [req.params.id], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Erreur lors de la suppression de la mission');
+      return;
+    }
+
+    res.status(200).send('Mission supprimée');
   });
 });
 

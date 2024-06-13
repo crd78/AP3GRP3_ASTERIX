@@ -13,6 +13,7 @@ import GestionUtilisateurs from './Pages/Admin/GestionUtilisateurs/GestionUtilis
 import AttractionAll from './Pages/User/Attractions/AttractionAll';
 import Navbar from './Pages/Navbar/Navbar';
 import Attractions from './Pages/User/Attractions/Attractions';
+import AdminMission from './Pages/Admin/Mission/AdminMission';
 
 
 
@@ -40,6 +41,7 @@ function App() {
             <Route path="/admin/Dashboard" element={<Dashboard />} />
             <Route path="/admin/utilisateurs" element={<GestionUtilisateurs />} />
             <Route path="/attractions/theme/:id_themes" element={<AttractionAll />} />
+            <Route path="/admin/Mission/AdminMission" element={<AdminMission />} />
           </Routes>
         </Router>
       </UserProvider>

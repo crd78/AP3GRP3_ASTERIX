@@ -12,6 +12,12 @@ const Navbar = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 1000);
     const [isOpen, setIsOpen] = useState(false);
 
+   
+    function logout() {
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+      }
+
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth < 1000);
@@ -62,7 +68,7 @@ const Navbar = () => {
                 ) : (
                     <ul>
                         <li>
-                            <Link to="/login">Connexion</Link>
+                        <button onClick={logout}>Déconnexion</button>
                         </li>
                     </ul>
                 )}

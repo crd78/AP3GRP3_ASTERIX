@@ -17,7 +17,7 @@ const Dashboard = () => {
                     <ul>
                         <li className='lien'><Link to="/admin/utilisateurs">Gestion des Utilisateurs</Link></li>
                         <li className='lien'><Link to="/admin/Avertissement/AdminAvertissements">Gestion des Avertissements</Link></li>
-                        <li><Link to="/admin/Avertissement/AdminAvertissements">Gestion des Missions</Link></li>
+                        <li><Link to="/admin/Mission/AdminMission">Gestion des Missions</Link></li>
                         <button onClick={logout}>Déconnexion</button>
 
                     </ul>

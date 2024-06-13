@@ -137,18 +137,6 @@ router.get('/missions/:Id', (req, res) => {
 });
 
 
-router.post('/takemissions', (req, res) => {
-  const query = 'INSERT INTO affectations (id_utilisateurs, id_missions, date_jour, est_valide, date_prise_de_poste, commentaires) VALUES (?, ?, ?, ?, ?, ?)';
-  db.query(query, [req.body.id_utilisateurs, req.body.id_missions, req.body.date_jour, req.body.est_valide, req.body.date_prise_de_poste, req.body.commentaires], (err, results) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ message: 'Error while assigning the mission', error: err });
-      return;
-    }
-
-    res.status(200).json({ message: 'Mission assigned successfully' });
-  });
-});
 
 router.put('/finishmissions/:missionId', (req, res) => { 
   const missionId = req.params.missionId;

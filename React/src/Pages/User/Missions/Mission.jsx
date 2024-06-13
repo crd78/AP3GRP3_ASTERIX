@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from '../../../assets/Context/UserContexte';
 import { toast } from 'react-toastify';
+import './Mission.css';
 
 const Missions = () => {
 
@@ -14,24 +15,32 @@ const Missions = () => {
     const [comment, setComment] = useState(''); // Add this line
    
 
-    const validateMission = async (missionId) => {
-        try {
-            const response = await axios.put(`http://localhost:3000/user/finishmissions/${missionId}`, {
-                est_valide: 1, // Mission terminée
-            });
+   const validateMission = async (missionId) => {
+    try {
+        // Find the affectation corresponding to the mission
+        const affectation = affectations.find(affectation => affectation.id === missionId);
 
-            if (response.status === 200) {
-                const updatedMissions = missions.map(mission => mission.id === missionId ? { ...mission, completed: true } : mission);
-                setMissions(updatedMissions);
-
-                const newCompletedMissions = updatedMissions.filter(mission => mission.completed);
-                setCompletedMissions(newCompletedMissions);
-            }
-        } catch (error) {
-            console.error('Error validating mission:', error);
+        if (!affectation) {
+            console.error('No affectation found for mission:', missionId);
+            return;
         }
-    };
 
+        // Update the affectation to indicate that the mission is completed
+        const response = await axios.put(`http://localhost:3000/user/finishmissions/${missionId}`, {
+            est_valide: 1, // Mission completed
+        });
+
+        if (response.status === 200) {
+            const updatedMissions = missions.map(mission => mission.id === missionId ? { ...mission, completed: true } : mission);
+            setMissions(updatedMissions);
+
+            const newCompletedMissions = updatedMissions.filter(mission => mission.completed);
+            setCompletedMissions(newCompletedMissions);
+        }
+    } catch (error) {
+        console.error('Error validating mission:', error);
+    }
+};
     const leaveComment = async (missionId, comment) => {
         try {
             const response = await axios.put(`http://localhost:3000/user/commentmissions/${missionId}`, {
@@ -49,12 +58,20 @@ const Missions = () => {
 
     const startMission = async (missionId) => {
     try {
+        // Find the affectation corresponding to the mission
+        const affectation = affectations.find(affectation => affectation.id === missionId);
+
+        if (!affectation) {
+            console.error('No affectation found for mission:', missionId);
+            return;
+        }
+
         const currentDate = new Date();
         const formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
 
-        const response = await axios.put(`http://localhost:3000/user/startmissions/${missionId}`, {
-            
-            date_prise_de_poste: formattedDate, // Add this line
+        // Use affectation.id_missions for the PUT request
+        const response = await axios.put(`http://localhost:3000/user/startmissions/${affectation.id_missions}`, {
+            date_prise_de_poste: formattedDate,
         });
 
         if (response.status === 200) {
@@ -72,14 +89,18 @@ const Missions = () => {
             try {
                 const affectationsResponse = await axios.get(`http://localhost:3000/user/affectations/${user.id}`);
                 const affectationsData = affectationsResponse.data;
-                setAffectations(affectationsData);
+
+                // Filtrer les affectations pour ne garder que celles qui ont id_utilisateurs égal à user.id
+                const filteredAffectations = affectationsData.filter(affectation => affectation.id_utilisateurs === user.id);
+                setAffectations(filteredAffectations);
+                console.log(user.id);
 
                 // Filtrer les affectations pour ne garder que celles qui ne sont pas validées
-                const nonValidatedAffectations = affectationsData.filter(affectation => affectation.est_valide !== 1);
+                const nonValidatedAffectations = filteredAffectations.filter(affectation => affectation.est_valide !== 1);
 
                 // Récupérer les missions correspondantes
                 const missionsPromises = nonValidatedAffectations.map(affectation => 
-                    axios.get(`http://localhost:3000/user/missions/${affectation.id_missions}`)
+                    axios.get(`http://localhost:3000/user/missions/${affectation.id_missions}`) // Use id_missions instead of id_utilisateurs
                 );
                 const missionsResponses = await Promise.all(missionsPromises);
                 const missionsData = missionsResponses.map(response => response.data);
